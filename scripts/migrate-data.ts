@@ -26,7 +26,26 @@ const productSchema = new mongoose.Schema({
   _id: false // Disable auto-generated ObjectId
 });
 
-const Product = mongoose.models.Product || mongoose.model('Product', productSchema);
+interface ProductDocument {
+  _id: string;
+  originalId: string;
+  title: string;
+  description?: string;
+  price: number;
+  oldPrice?: number;
+  categories?: string[];
+  image?: string[];
+  rating?: number;
+  amount: number;
+  shop_category: string;
+  unit_of_measure?: string;
+  colors?: string[];
+  sizes?: string[];
+}
+
+const Product: mongoose.Model<any> =
+  (mongoose.models as Record<string, mongoose.Model<any>>).Product ||
+  mongoose.model<any>('Product', productSchema);
 
 // Function to get correct image path based on shop category
 function getImagePath(originalPath: string, shopCategory: string): string {

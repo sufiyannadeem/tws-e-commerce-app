@@ -1,3 +1,4 @@
+
 import ProfileForm from "@/components/forms/ProfileForm";
 import { Metadata } from "next";
 import React from "react";
@@ -13,7 +14,7 @@ export const metadata: Metadata = {
 
 const ProfilePage = async () => {
   // Get the token from cookies
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const token = cookieStore.get("token")?.value;
 
   // If no token, redirect to login
@@ -35,3 +36,5 @@ const ProfilePage = async () => {
 };
 
 export default ProfilePage;
+
+

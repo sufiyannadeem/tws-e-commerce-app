@@ -23,7 +23,7 @@ export interface IOrder {
   paymentStatus: string;
 }
 
-const orderItemSchema = new mongoose.Schema<IOrderItem>({
+const orderItemSchema = new mongoose.Schema<any>({
   product: {
     type: String,
     ref: 'Product',
@@ -40,7 +40,7 @@ const orderItemSchema = new mongoose.Schema<IOrderItem>({
   }
 }, { _id: false });
 
-const orderSchema = new mongoose.Schema<IOrder>({
+const orderSchema = new mongoose.Schema<any>({
   user: {
     type: String,
     required: true,

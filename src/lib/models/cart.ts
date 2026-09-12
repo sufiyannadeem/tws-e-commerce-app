@@ -12,7 +12,7 @@ export interface ICart {
   total: number;
 }
 
-const cartItemSchema = new mongoose.Schema<ICartItem>({
+const cartItemSchema = new mongoose.Schema<any>({
   product: {
     type: String,
     ref: 'Product',
@@ -29,7 +29,7 @@ const cartItemSchema = new mongoose.Schema<ICartItem>({
   }
 }, { _id: false });
 
-const cartSchema = new mongoose.Schema<ICart>({
+const cartSchema = new mongoose.Schema<any>({
   user: {
     type: String,
     required: true,
@@ -46,8 +46,11 @@ const cartSchema = new mongoose.Schema<ICart>({
 });
 
 // Calculate total before saving
-cartSchema.pre('save', async function(next) {
-  this.total = this.items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+cartSchema.pre('save', async function(this: any, next) {
+  this.total = this.items.reduce(
+    (sum: number, item: any) => sum + (item.price * item.quantity),
+    0
+  );
   next();
 });
 

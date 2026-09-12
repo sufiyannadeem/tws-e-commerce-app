@@ -1,3 +1,4 @@
+
 import BannerSlider from "@/components/BannerSlider";
 import BekaryCategories from "@/components/BekaryCategories";
 import FilterNav from "@/components/filters/FilterNav";
@@ -39,14 +40,15 @@ type ShopNames =
 
 type LayoutProps = Readonly<{
   children: React.ReactNode;
-  params: {
+  params: Promise<{
     shop: string;
-  };
+  }>;
 }>;
 
 // Dynamic metadata
 export async function generateMetadata({ params }: LayoutProps) {
   const { shop } = await params;
+
   return {
     title: shop,
   };
@@ -152,7 +154,9 @@ const layout = async ({ children, params }: LayoutProps) => {
           <div className="flex">
             <SidebarTwo />
             <div className="flex-1 max-w-full">
-              <HeroSlider heroImages={settings?.hero?.images} />
+              <HeroSlider
+                heroImages={settings?.hero?.images}
+              />
               <FilterNav
                 {...settings.filterOptions}
                 sidebar={<SidebarTwo isMobile={true} />}
@@ -236,3 +240,5 @@ const layout = async ({ children, params }: LayoutProps) => {
 };
 
 export default layout;
+
+

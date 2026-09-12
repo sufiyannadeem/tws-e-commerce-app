@@ -4,16 +4,16 @@ import Product from '@/lib/models/product';
 
 export async function GET(
   request: Request,
-  { params }: { params: { slug: string } }
+  { params }: { params: Promise<{ slug: string }> }
 ) {
   try {
     await dbConnect();
-    
-    const { slug } = params;
-    
+
+    const { slug } = await params;
+
     // First try to find by originalId (which is used as slug)
     let product = await Product.findOne({ originalId: slug });
-    
+
     // If not found by originalId, try by _id
     if (!product) {
       // Only try to find by _id if the slug looks like a MongoDB ObjectId
@@ -21,14 +21,14 @@ export async function GET(
         product = await Product.findById(slug);
       }
     }
-    
+
     if (!product) {
       return NextResponse.json(
         { error: 'Product not found' },
         { status: 404 }
       );
     }
-    
+
     return NextResponse.json(product);
   } catch (error) {
     console.error('Error fetching single product:', error);
