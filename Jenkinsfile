@@ -3,7 +3,7 @@
 pipeline {
 agent any
 
-```
+
 environment {
     DOCKER_IMAGE_NAME = 'sufiyannadeem/easyshop-app'
     DOCKER_MIGRATION_IMAGE_NAME = 'sufiyannadeem/easyshop-migration'
