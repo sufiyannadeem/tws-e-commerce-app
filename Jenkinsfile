@@ -52,34 +52,35 @@ stages {
 
     // 3. Build both Docker images
     stage('Build Docker Images') {
+        stages {
 
-        stage('Build Main App Image') {
-            steps {
-                script {
-                    docker_build(
-                        imageName: env.DOCKER_IMAGE_NAME,
-                        imageTag: env.DOCKER_IMAGE_TAG,
-                        dockerfile: 'Dockerfile',
-                        context: '.'
-                )
+            stage('Build Main App Image') {
+                steps {
+                    script {
+                        docker_build(
+                            imageName: env.DOCKER_IMAGE_NAME,
+                            imageTag: env.DOCKER_IMAGE_TAG,
+                            dockerfile: 'Dockerfile',
+                            context: '.'
+                    )
+                }
             }
         }
-    }
 
-        stage('Build Migration Image') {
-            steps {
-                script {
-                    docker_build(
-                        imageName: env.DOCKER_MIGRATION_IMAGE_NAME,
-                        imageTag: env.DOCKER_IMAGE_TAG,
-                        dockerfile: 'scripts/Dockerfile.migration',
-                        context: '.'
-                )
+            stage('Build Migration Image') {
+                steps {
+                    script {
+                        docker_build(
+                            imageName: env.DOCKER_MIGRATION_IMAGE_NAME,
+                            imageTag: env.DOCKER_IMAGE_TAG,
+                            dockerfile: 'scripts/Dockerfile.migration',
+                            context: '.'
+                    )
+                }
             }
         }
     }
 }
-
     // 4. Scan the actual Docker images
     stage('Security Scan - Docker Images') {
         steps {
