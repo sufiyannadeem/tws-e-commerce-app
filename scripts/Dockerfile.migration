@@ -1,54 +1,55 @@
-# ============================================
+# ================================
 # Stage 1: Dependencies
-# ============================================
+# ================================
 FROM node:22-alpine AS deps
 
 WORKDIR /app
 
-# Required for native Node modules
-RUN apk upgrade --no-cache \
-    && apk add --no-cache \
-        python3 \
-        make \
-        g++
+RUN apk upgrade --no-cache
 
-# Copy dependency files
 COPY package.json package-lock.json ./
 
-# Install exact dependencies
-RUN npm ci
+# Install only production dependencies
+RUN npm ci --omit=dev
+
+# ts-node requires TypeScript at runtime
+RUN npm install --no-save --package-lock=false typescript@5.9.3
 
 
-# ============================================
+# ================================
 # Stage 2: Migration Runtime
-# ============================================
+# ================================
 FROM node:22-alpine AS runner
 
 WORKDIR /app
 
 ENV NODE_ENV=production
 
-# Apply latest Alpine security updates
 RUN apk upgrade --no-cache
 
 # Create non-root user
 RUN addgroup --system --gid 1001 nodejs \
     && adduser --system --uid 1001 migration
 
-# Copy installed dependencies
+# Copy production dependencies
 COPY --from=deps /app/node_modules ./node_modules
 
-# Copy migration configuration and source
+# Copy migration files
 COPY scripts ./scripts
 
-# Copy database seed/data files
+# Copy migration data
 COPY .db ./.db
 
-# Give application user ownership
+# Remove npm/corepack from final runtime image
+RUN rm -rf /usr/local/lib/node_modules/npm \
+    /usr/local/lib/node_modules/corepack \
+    /usr/local/bin/npm \
+    /usr/local/bin/npx \
+    /usr/local/bin/corepack
+
+# Set permissions
 RUN chown -R migration:nodejs /app
 
 USER migration
 
-# Run migration directly with ts-node.
-# No npm/npx is required at runtime.
 CMD ["node_modules/.bin/ts-node", "--project", "scripts/tsconfig.json", "scripts/migrate-data.ts"]
