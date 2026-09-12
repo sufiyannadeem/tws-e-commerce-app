@@ -85,31 +85,22 @@ stages {
 
     // 4. Scan the actual Docker images
     stage('Security Scan - Docker Images') {
-        parallel {
+        steps {
+            script {
+                echo "Scanning Main App Image..."
+                trivy_image(
+                    env.DOCKER_IMAGE_NAME,
+                    env.DOCKER_IMAGE_TAG
+            )
 
-            stage('Scan Main App Image') {
-                steps {
-                    script {
-                        trivy_image(
-                            env.DOCKER_IMAGE_NAME,
-                            env.DOCKER_IMAGE_TAG
-                        )
-                    }
-                }
-            }
-
-            stage('Scan Migration Image') {
-                steps {
-                    script {
-                        trivy_image(
-                            env.DOCKER_MIGRATION_IMAGE_NAME,
-                            env.DOCKER_IMAGE_TAG
-                        )
-                    }
-                }
-            }
+                echo "Scanning Migration Image..."
+                trivy_image(
+                    env.DOCKER_MIGRATION_IMAGE_NAME,
+                    env.DOCKER_IMAGE_TAG
+            )
         }
     }
+}
 
     // 5. Push only if all previous stages passed
     stage('Push Docker Images') {
