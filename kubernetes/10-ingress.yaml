@@ -13,7 +13,7 @@ spec:
     - easyshop.nadeemsufiyan.in
     secretName: easyshop-tls-secret  # Cert-Manager will manage this
   rules:
-  - host: easyshop.letsdeployit.com
+  - host: easyshop.nadeemsufiyan.in
     http:
       paths:
       - path: /
