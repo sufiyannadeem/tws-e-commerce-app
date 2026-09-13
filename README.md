@@ -13,8 +13,6 @@
 ![Prometheus](https://img.shields.io/badge/Prometheus-Monitoring-E6522C?style=for-the-badge&logo=prometheus)
 ![Grafana](https://img.shields.io/badge/Grafana-Dashboard-F46800?style=for-the-badge&logo=grafana)
 
-# EasyShop – End-to-End DevOps Project
-
 ## Project Overview
 
 EasyShop is a full-stack e-commerce application deployed on AWS EKS using an automated DevOps and GitOps workflow.
@@ -36,62 +34,88 @@ The project demonstrates the complete flow from source-code commit to applicatio
 
 The main goal of the project is to automate application delivery while making the infrastructure reproducible, deployments traceable, and the application scalable and observable.
 
-
 ## Architecture
 
-```text
-                         Developer
-                             |
-                             | git push
-                             v
-                    +------------------+
-                    |     GitHub       |
-                    | Application Repo |
-                    +------------------+
-                             |
-                          Webhook
-                             |
-                             v
-                    +------------------+
-                    |     Jenkins      |
-                    |       CI         |
-                    +------------------+
-                             |
-              +--------------+--------------+
-              |              |              |
-              v              v              v
-            Tests          Trivy       Docker Build
-                            Scan            |
+### Application Traffic Flow
+
+
+                         USER
+                           |
+                           | HTTPS
+                           v
+                  +-------------------+
+                  |   AWS LoadBalancer |
+                  +-------------------+
+                           |
+                           v
+                  +-------------------+
+                  |  NGINX Ingress    |
+                  +-------------------+
+                           |
+                           v
+                  +-------------------+
+                  | EasyShop Service  |
+                  +-------------------+
+                           |
+              +------------+------------+
+              |            |            |
+              v            v            v
+           Pod 1        Pod 2        Pod 3
+              |            |            |
+              +------------+------------+
+                           |
+                           v
+                  +-------------------+
+                  |  MongoDB Service   |
+                  +-------------------+
+                           |
+                           v
+                       MongoDB
+---
+
+## CI/CD and GitOps Flow
+
+                       DEVELOPER
+                           |
+                           | git push
+                           v
+                  +------------------+
+                  |      GitHub      |
+                  | Application Repo |
+                  +------------------+
+                           |
+                           | Webhook
+                           v
+                  +------------------+
+                  |     Jenkins      |
+                  |       CI         |
+                  +------------------+
+                           |
+          +----------------+----------------+
+          |                |                |
+          v                v                v
+       Tests            Trivy         Docker Build
+                        Scan                |
                                             v
-                                      Docker Image
+                                      Docker Images
                                             |
                                             v
                                       Docker Hub
                                             |
                                             v
-                                   GitOps Repository
+                                  GitOps Repository
                                             |
                                             v
-                                         Argo CD
+                                        Argo CD
                                             |
                                             v
-                                      AWS EKS Cluster
+                                     AWS EKS Cluster
                                             |
-                              +-------------+-------------+
-                              |             |             |
-                              v             v             v
-                         EasyShop       MongoDB       Monitoring
-                           Pods                        Prometheus
-                              |                         Grafana
-                              |
-                              v
-                         HPA / Scaling
-                              |
-                              v
-                        NGINX Ingress
-                              |
-                              v
-                           HTTPS
-                              |
-                              v
-                             User
+                         +------------------+------------------+
+                         |                  |                  |
+                         v                  v                  v
+                    EasyShop             MongoDB          Monitoring
+                       Pods                                  |
+                         |                                    |
+                         v                                    v
+                        HPA                           Prometheus + Grafana
