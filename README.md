@@ -82,24 +82,34 @@ https://github.com/sufiyannadeem/tws-e-commerce-gitops.git
 
 Contains the Kubernetes manifests used by Argo CD for deployment.
 
-## CI/CD Pipeline
-
-The project implements an automated CI/CD pipeline using Jenkins, Docker, Trivy, Docker Hub, GitOps, and Argo CD.
-
 ### Pipeline Flow
 
 ```mermaid
 flowchart LR
-    A[Developer] --> B[GitHub<br/>Application Repository]
+    A[Developer] --> B[GitHub Application Repository]
     B -->|Webhook| C[Jenkins]
     C --> D[Run Tests]
-    D --> E[Trivy<br/>Filesystem Scan]
+    D --> E[Trivy Filesystem Scan]
     E --> F[Build Docker Images]
-    F --> G[Trivy<br/>Docker Image Scan]
-    G --> H[Push Images<br/>to Docker Hub]
-    H --> I[Update GitOps<br/>Repository]
+    F --> G[Trivy Docker Image Scan]
+    G --> H[Push Images to Docker Hub]
+    H --> I[Update GitOps Repository]
     I --> J[Argo CD]
     J --> K[AWS EKS]
+```
+
+### Jenkins Pipeline Stages
+
+| Stage | Description |
+|---|---|
+| Cleanup Workspace | Removes files from previous builds |
+| Clone Repository | Clones the application source code |
+| Run Tests | Executes application tests |
+| Security Scan - Filesystem | Scans source code and dependencies using Trivy |
+| Build Docker Images | Builds EasyShop application and migration images |
+| Security Scan - Docker Images | Scans Docker images using Trivy |
+| Push Docker Images | Pushes verified images to Docker Hub |
+| Update GitOps Manifests | Updates image tags in the GitOps repository |
 
 ## Jenkins Pipeline Stages
 
