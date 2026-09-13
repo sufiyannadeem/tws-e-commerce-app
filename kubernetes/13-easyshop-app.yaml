@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: Easyshop-app
+  name: easyshop-app
   namespace: argocd
 spec:
   project: default
