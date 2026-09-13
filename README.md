@@ -88,29 +88,19 @@ The project implements an automated CI/CD pipeline using Jenkins, Docker, Trivy,
 
 ### Pipeline Flow
 
-Developer <br>
-    ↓ <br>
-GitHub Application Repository
-    ↓
-GitHub Webhook
-    ↓
-Jenkins
-    ↓
-Run Tests
-    ↓
-Trivy Filesystem Scan
-    ↓
-Build Docker Images
-    ↓
-Trivy Docker Image Scan
-    ↓
-Push Images to Docker Hub
-    ↓
-Update GitOps Repository
-    ↓
-Argo CD
-    ↓
-AWS EKS
+```mermaid
+flowchart LR
+    A[Developer] --> B[GitHub<br/>Application Repository]
+    B -->|Webhook| C[Jenkins]
+
+    C --> D[Run Tests]
+    D --> E[Trivy<br/>Filesystem Scan]
+    E --> F[Build Docker Images]
+    F --> G[Trivy<br/>Docker Image Scan]
+    G --> H[Push Images<br/>to Docker Hub]
+    H --> I[Update GitOps<br/>Repository]
+    I --> J[Argo CD]
+    J --> K[AWS EKS]
 
 ## Jenkins Pipeline Stages
 
