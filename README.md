@@ -112,7 +112,7 @@ Jenkins performs the CI activities, while Argo CD handles the Kubernetes deploym
 
 The Jenkins pipeline builds two Docker images:
 
-sufiyannadeem/easyshop-app:<BUILD_NUMBER>
+sufiyannadeem/easyshop-app:<BUILD_NUMBER> <br>
 sufiyannadeem/easyshop-migration:<BUILD_NUMBER>
 
 The application image contains the EasyShop application, while the migration image is used to execute database migrations before deployment.
@@ -127,21 +127,13 @@ Trivy is integrated into the Jenkins pipeline for container and filesystem secur
 
 The source code and project dependencies are scanned before Docker image creation.
 
-Source Code
-    ↓
-Trivy Filesystem Scan
-    ↓
-Docker Build
+**Source Code** → **Trivy Filesystem Scan** → **Docker Build**
 
 ## Docker Image Scan
 
 Docker images are scanned after they are built and before they are pushed to Docker Hub.
 
-Docker Build
-    ↓
-Trivy Image Scan
-    ↓
-Docker Hub
+**Docker Build** → **Trivy Image Scan** → **Docker Hub**
 
 This provides security checks at both the source-code and container-image stages.
 
@@ -167,21 +159,7 @@ The application source code and Kubernetes deployment manifests are maintained i
 
 ## Deployment Flow
 
-Application Repository
-        ↓
-     Jenkins
-        ↓
-Build + Test + Scan
-        ↓
-    Docker Hub
-        ↓
-Update Image Tag
-        ↓
-GitOps Repository
-        ↓
-      Argo CD
-        ↓
-      AWS EKS
+**Application Repository** → **Jenkins** → **Build + Test + Scan** → **Docker Hub** → **Update Image Tag** → **GitOps Repository** → **Argo CD** → **AWS EKS**
 
 Jenkins does not directly deploy the application to Kubernetes.
 
@@ -210,13 +188,7 @@ Database migrations are executed automatically using a dedicated Kubernetes Job.
 
 The migration Job runs before the application deployment using an Argo CD PreSync hook.
 
-Argo CD Sync
-    ↓
-PreSync Migration Job
-    ↓
-MongoDB Migration
-    ↓
-EasyShop Deployment
+**Argo CD Sync** → **PreSync Migration Job** → **MongoDB Migration** → **EasyShop Deployment**
 
 The migration Job uses a separate Docker image:
 
@@ -228,15 +200,7 @@ This ensures that database changes are applied as part of the deployment process
 
 NGINX Ingress is used to route external traffic to the EasyShop application.
 
-User
-  ↓ HTTPS
-AWS Load Balancer
-  ↓
-NGINX Ingress
-  ↓
-EasyShop Service
-  ↓
-EasyShop Pods
+**User** → **HTTPS** → **AWS Load Balancer** → **NGINX Ingress** → **EasyShop Service** → **EasyShop Pods**
 
 The application is exposed using:
 
@@ -268,12 +232,9 @@ When resource usage decreases, Kubernetes can reduce the number of replicas whil
 
 The Kubernetes environment is monitored using Prometheus and Grafana.
 
-Monitoring Stack
-AWS EKS
-   ↓
-Prometheus
-   ↓
-Grafana
+# Monitoring Stack:
+
+**AWS EKS** → **Prometheus** → **Grafana**
 
 Prometheus collects Kubernetes and application-related metrics, while Grafana provides dashboards for visualization and monitoring.
 
@@ -352,33 +313,7 @@ This project demonstrates an end-to-end DevOps workflow for deploying a containe
 
 The implementation covers the complete lifecycle:
 
-Code
- ↓
-GitHub
- ↓
-Jenkins
- ↓
-Test
- ↓
-Security Scan
- ↓
-Docker Build
- ↓
-Docker Image Scan
- ↓
-Docker Hub
- ↓
-GitOps Repository
- ↓
-Argo CD
- ↓
-Amazon EKS
- ↓
-NGINX Ingress
- ↓
-HTTPS
- ↓
-Users
+**Code** → **GitHub** → **Jenkins** → **Test** → **Security Scan** → **Docker Build** → **Docker Image Scan** → **Docker Hub** → **GitOps Repository** → **Argo CD** → **Amazon EKS** → **NGINX Ingress** → **HTTPS** → **Users**
 
 The infrastructure, CI/CD pipeline, security scanning, GitOps deployment, autoscaling, HTTPS, monitoring, and database migration are automated and managed using modern DevOps practices.
 
