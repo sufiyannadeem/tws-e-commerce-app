@@ -34,6 +34,18 @@ The project demonstrates the complete flow from source-code commit to applicatio
 
 The main goal of the project is to automate application delivery while making the infrastructure reproducible, deployments traceable, and the application scalable and observable.
 
+## Application Features
+
+- User authentication using JWT
+- Product browsing and search
+- Product categories
+- Shopping cart
+- Checkout
+- User profiles
+- Order history
+- Responsive UI
+- Dark and light mode
+
 ## Technology Stack
 
 | Category | Technology |
@@ -54,6 +66,8 @@ The main goal of the project is to automate application delivery while making th
 | Metrics | Metrics Server |
 | Monitoring | Prometheus + Grafana |
 
+<img src="architecture.png" alt="EasyShop DevOps Architecture" width="100%">
+
 ## Project Repositories
 
 ### Application Repository
@@ -69,6 +83,4 @@ https://github.com/sufiyannadeem/tws-e-commerce-gitops.git
 Contains the Kubernetes manifests used by Argo CD for deployment.
 
 
----
 
-<img src="architecture.png" alt="EasyShop DevOps Architecture" width="100%">
