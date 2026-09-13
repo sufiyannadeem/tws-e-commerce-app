@@ -283,8 +283,8 @@ Kubernetes Jobs have immutable pod templates. Updating the Docker image of an ex
 
 The solution was to configure the migration Job as an Argo CD PreSync hook with:
 
-annotations:
-  argocd.argoproj.io/hook: PreSync
+annotations: <br>
+  argocd.argoproj.io/hook: PreSync <br>
   argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
 
 This allows the previous migration Job to be removed before creating the new Job during deployment.
