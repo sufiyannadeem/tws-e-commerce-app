@@ -92,7 +92,6 @@ The project implements an automated CI/CD pipeline using Jenkins, Docker, Trivy,
 flowchart LR
     A[Developer] --> B[GitHub<br/>Application Repository]
     B -->|Webhook| C[Jenkins]
-
     C --> D[Run Tests]
     D --> E[Trivy<br/>Filesystem Scan]
     E --> F[Build Docker Images]
