@@ -34,8 +34,6 @@ The project demonstrates the complete flow from source-code commit to applicatio
 
 The main goal of the project is to automate application delivery while making the infrastructure reproducible, deployments traceable, and the application scalable and observable.
 
-## Architecture
-
 ---
 
 <img src="architecture.png" alt="EasyShop DevOps Architecture" width="100%">
