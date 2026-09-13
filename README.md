@@ -232,7 +232,7 @@ When resource usage decreases, Kubernetes can reduce the number of replicas whil
 
 The Kubernetes environment is monitored using Prometheus and Grafana.
 
-# Monitoring Stack:
+## Monitoring Stack:
 
 **AWS EKS** → **Prometheus** → **Grafana**
 
