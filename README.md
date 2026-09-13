@@ -19,7 +19,9 @@ The project demonstrates a complete end-to-end deployment workflow starting from
 
 ---
 
+
 # Project Overview
+
 
 EasyShop is an e-commerce application built using Next.js, TypeScript, React, Redux, Tailwind CSS, and MongoDB.
 
@@ -43,7 +45,9 @@ Prometheus and Grafana are used for monitoring, metrics collection, and visualiz
 
 ---
 
+
 # Application Features
+
 
 EasyShop provides the following application features:
 
@@ -64,7 +68,9 @@ EasyShop provides the following application features:
 
 ---
 
+
 # Application Architecture
+
 
 The application follows a three-tier architecture.
 
@@ -74,7 +80,9 @@ The three main layers are:
 2. Application Layer
 3. Data Layer
 
+
 ## Presentation Layer
+
 
 The presentation layer is responsible for the user interface.
 
@@ -88,7 +96,9 @@ Technologies used include:
 
 Users interact with the application through a web browser.
 
+
 ## Application Layer
+
 
 The application layer contains the application logic and API functionality.
 
@@ -103,7 +113,9 @@ It handles:
 - User profile functionality
 - API requests
 
+
 ## Data Layer
+
 
 MongoDB is used as the database.
 
@@ -119,7 +131,9 @@ The database is used to store application data such as:
 
 ---
 
+
 # DevOps Architecture
+
 
 The project follows a complete CI/CD and GitOps workflow.
 
@@ -127,251 +141,391 @@ The overall deployment flow is:
 
 ```text
                          Developer
+```text
                              |
                              |
+```
                        Push Application Code
+```text
                              |
                              v
+```
                   GitHub Application Repository
+```text
                              |
                              |
                       GitHub Webhook
                              |
                              v
+```
                          Jenkins CI
+```text
                              |
               +--------------+--------------+
               |                             |
               v                             v
+```
         Run Application Tests        Trivy Filesystem Scan
+```text
               |                             |
               +--------------+--------------+
                              |
                              v
+```
                   Build Docker Images
+```text
                              |
                              v
+```
                   Trivy Image Scan
+```text
                              |
                              v
-                       Docker Hub
+- Docker Hub
                              |
                              v
+```
                  Update GitOps Repository
+```text
                              |
                              v
+```
                   GitHub GitOps Repository
+```text
                              |
                              v
-                         Argo CD
+```
+
+## Argo CD
+
+```text
                              |
                              v
-                      Amazon EKS
+```
+
+# Amazon EKS
+
+```text
                              |
                              v
-                  Kubernetes Deployment
+```
+
+# Kubernetes Deployment
+
+```text
                              |
                              v
+```
                     EasyShop Application
+```text
                              |
                              v
-                   NGINX Ingress Controller
+```
+
+# NGINX Ingress Controller
+
+```text
                              |
                              v
                     HTTPS / Let's Encrypt
                              |
                              v
-                          Users
+- Users
 
+```
 Monitoring and autoscaling operate alongside the application:
 
-                         Amazon EKS
+
+# Amazon EKS
+
+```text
                              |
                 +------------+------------+
                 |                         |
                 v                         v
+```
           Metrics Server              Prometheus
+```text
                 |                         |
                 v                         v
+```
                HPA                     Grafana
+```text
                 |                         |
                 v                         v
+```
         Application Scaling       Monitoring Dashboards
-Project Repositories
+
+# Project Repositories
+
 
 The project uses separate repositories for application source code, Kubernetes deployment configuration, and Jenkins shared functionality.
 
-Application Repository
+
+## Application Repository
+
 
 The application source code is maintained in:
 
 https://github.com/sufiyannadeem/tws-e-commerce-app
 
+```text
 Application branch:
 
 master
 
+```
 This repository contains:
 
-Application source code
-Dockerfile
-Dockerfile.dev
-Jenkinsfile
-Terraform infrastructure
-Kubernetes-related project files
-Application configuration
-Scripts
-GitOps Repository
+- Application source code
+- Dockerfile
+- Dockerfile.dev
+- Jenkinsfile
+- Terraform infrastructure
+- Kubernetes-related project files
+- Application configuration
+- Scripts
+
+## GitOps Repository
+
 
 The Kubernetes deployment configuration is maintained separately in:
 
 https://github.com/sufiyannadeem/tws-e-commerce-gitops
 
+```text
 GitOps branch:
 
 main
 
+```
 The GitOps repository contains the Kubernetes manifests used by Argo CD.
 
 Jenkins updates the Docker image tags in this repository after successfully building and pushing new images.
 
-Jenkins Shared Library
+
+# Jenkins Shared Library
+
 
 Reusable Jenkins pipeline functionality is maintained in:
 
 https://github.com/sufiyannadeem/jenkins-shared-libraries
 
+```text
 Shared library branch:
 
 main
 
+```
 The shared library provides reusable functions for the Jenkins pipeline and GitOps repository update process.
 
-Technology Stack
+
+# Technology Stack
+
 
 The project uses the following technologies.
 
-Application
-Next.js 14.1.0
-React
-TypeScript
-Redux
-Tailwind CSS
-MongoDB
-DevOps
-Git
-GitHub
-Jenkins
-Docker
-Docker Hub
-Trivy
-Infrastructure
-AWS
-Terraform
-Amazon VPC
-Amazon EC2
-Amazon EKS
-NAT Gateway
-Security Groups
-AWS Load Balancer
-Kubernetes
-Kubernetes
-Amazon EKS
-Deployment
-Service
-Job
-ConfigMap
-Secret
-Ingress
-Horizontal Pod Autoscaler
-Metrics Server
-GitOps
-Argo CD
-Networking
-NGINX Ingress Controller
-AWS Load Balancer
-Kubernetes Service
-HTTPS
-cert-manager
-Let's Encrypt
-Monitoring
-Metrics Server
-Prometheus
-Grafana
-Prerequisites
+
+## Application
+
+- Next.js 14.1.0
+- React
+- TypeScript
+- Redux
+- Tailwind CSS
+
+# MongoDB
+
+
+## DevOps
+
+- Git
+- GitHub
+- Jenkins
+
+## Docker
+
+- Docker Hub
+
+## Trivy
+
+
+## Infrastructure
+
+
+## AWS
+
+
+## Terraform
+
+- Amazon VPC
+- Amazon EC2
+
+# Amazon EKS
+
+
+# NAT Gateway
+
+- Security Groups
+- AWS Load Balancer
+
+## Kubernetes
+
+
+## Kubernetes
+
+
+# Amazon EKS
+
+- Deployment
+- Service
+- Job
+- ConfigMap
+- Secret
+- Ingress
+- Horizontal Pod Autoscaler
+
+# Metrics Server
+
+
+## GitOps
+
+
+## Argo CD
+
+
+## Networking
+
+
+# NGINX Ingress Controller
+
+- AWS Load Balancer
+- Kubernetes Service
+
+## HTTPS
+
+- cert-manager
+- Let's Encrypt
+
+## Monitoring
+
+
+# Metrics Server
+
+
+# Prometheus
+
+
+# Grafana
+
+
+# Prerequisites
+
 
 Before deploying EasyShop, make sure the required tools, accounts, credentials, and network configuration are available.
 
-Required Tools
+
+## Required Tools
+
 
 The following tools are required:
 
-AWS CLI
-Terraform
-kubectl
-Helm
-Docker
-Git
-Jenkins
-Argo CD CLI
-Trivy
-OpenSSL
-curl
-jq
-Verify Installation
+- AWS CLI
+
+## Terraform
+
+- kubectl
+
+## Helm
+
+
+## Docker
+
+- Git
+- Jenkins
+- Argo CD CLI
+
+## Trivy
+
+- OpenSSL
+- curl
+- jq
+
+## Verify Installation
+
 
 Check the installed versions using:
 
+```text
 aws --version
 terraform version
 kubectl version --client
 helm version
 docker --version
+```
 git --version
+```text
 argocd version --client
 trivy --version
 openssl version
 curl --version
 jq --version
-Required Accounts
+```
+
+## Required Accounts
+
 
 The following accounts are required:
 
-AWS account
-GitHub account
-Docker Hub account
-Registered domain
-DNS management access
-AWS Account
+- AWS account
+- GitHub account
+- Docker Hub account
+- Registered domain
+- DNS management access
+
+## AWS Account
+
 
 An AWS account is required to provision and manage:
 
-Amazon VPC
+- Amazon VPC
 Public and private subnets
-NAT Gateway
-Security Groups
+
+# NAT Gateway
+
+- Security Groups
 EC2 instances
-Amazon EKS
+
+# Amazon EKS
+
 EKS managed node groups
 AWS Load Balancers
 
 Configure AWS CLI:
 
+```text
 aws configure
 
+```
 Verify AWS access:
 
+```text
 aws sts get-caller-identity
 
+```
 The AWS identity used for Terraform and EKS administration must have sufficient permissions for the resources being created.
 
-GitHub Account
+
+## GitHub Account
+
 
 GitHub is used for:
 
-Application source code
+- Application source code
 GitOps Kubernetes manifests
-Jenkins Shared Library
+
+# Jenkins Shared Library
+
 Jenkins webhook integration
 
 Application repository:
@@ -382,22 +536,30 @@ GitOps repository:
 
 https://github.com/sufiyannadeem/tws-e-commerce-gitops
 
+```text
 Shared Library repository:
 
+```
 https://github.com/sufiyannadeem/jenkins-shared-libraries
-Docker Hub Account
+
+## Docker Hub Account
+
 
 Docker Hub is used as the container image registry.
 
 The Jenkins pipeline builds and pushes the following images:
 
+```text
 sufiyannadeem/easyshop-app:<BUILD_NUMBER>
 
 sufiyannadeem/easyshop-migration:<BUILD_NUMBER>
 
+```
 Docker Hub credentials must be configured in Jenkins.
 
-Domain Name
+
+## Domain Name
+
 
 A registered domain is required for public HTTPS access.
 
@@ -407,25 +569,30 @@ easyshop.nadeemsufiyan.in
 
 The DNS record must point to the AWS Load Balancer created for the NGINX Ingress Controller.
 
-Network Requirements
+
+## Network Requirements
+
 
 The deployment requires internet connectivity for:
 
-GitHub
-Docker Hub
+- GitHub
+- Docker Hub
 AWS APIs
 Terraform providers
 Helm repositories
-Let's Encrypt
+- Let's Encrypt
 Container image pulls
 
 Port 80 must be reachable from the internet during Let's Encrypt HTTP-01 certificate validation.
 
-Project Structure
+
+# Project Structure
+
 
 The main application repository contains the following important directories and files:
 
 tws-e-commerce-app/
+```text
 │
 ├── .db/
 │
@@ -456,9 +623,11 @@ tws-e-commerce-app/
 ├── tailwind.config.ts
 └── tsconfig.json
 
+```
 The GitOps repository contains the Kubernetes deployment configuration:
 
 tws-e-commerce-gitops/
+```text
 │
 └── kubernetes/
     │
@@ -471,26 +640,35 @@ tws-e-commerce-gitops/
     ├── migration-job.yaml
     └── hpa.yaml
 
+```
 The exact GitOps files may change as the Kubernetes configuration evolves.
 
-Infrastructure with Terraform
+
+# Infrastructure with Terraform
+
 
 Terraform is used to provision the AWS infrastructure.
 
 The infrastructure includes:
 
-VPC
-Availability Zones
-Public subnets
-Private subnets
-Intra subnets
-NAT Gateway
-Security Groups
-Jenkins EC2 instance
-Bastion Host
-EKS cluster
-EKS managed node group
-EKS add-ons
+
+## VPC
+
+- Availability Zones
+- Public subnets
+- Private subnets
+- Intra subnets
+
+# NAT Gateway
+
+- Security Groups
+- Jenkins EC2 instance
+
+# Bastion Host
+
+- EKS cluster
+- EKS managed node group
+- EKS add-ons
 
 The Terraform configuration is located inside:
 
@@ -498,36 +676,52 @@ terraform/
 
 Initialize Terraform:
 
+```text
 cd terraform
 terraform init
 
+```
 Format Terraform files:
 
+```text
 terraform fmt -recursive
 
+```
 Validate the configuration:
 
+```text
 terraform validate
 
+```
 Review the infrastructure plan:
 
+```text
 terraform plan
 
+```
 Apply the infrastructure:
 
+```text
 terraform apply
 
+```
 To destroy the infrastructure:
 
+```text
 terraform destroy
 
+```
 Always review the Terraform plan before applying changes.
 
-Terraform Infrastructure Configuration
+
+# Terraform Infrastructure Configuration
+
 
 The project uses the following Terraform modules and AWS resources.
 
-VPC
+
+## VPC
+
 
 The VPC is created using:
 
@@ -539,14 +733,18 @@ The project uses version:
 
 The VPC contains:
 
-Public subnets
-Private subnets
-Intra subnets
-NAT Gateway
+- Public subnets
+- Private subnets
+- Intra subnets
+
+# NAT Gateway
+
 
 DNS hostnames and DNS support are enabled.
 
-EKS
+
+## EKS
+
 
 The EKS cluster is created using:
 
@@ -555,13 +753,16 @@ terraform-aws-modules/eks/aws
 The project uses version:
 
 21.25.0
-VPC Architecture
+
+# VPC Architecture
+
 
 The project uses a custom AWS VPC.
 
 The VPC contains:
 
 AWS VPC
+```text
 │
 ├── Public Subnets
 │   ├── Jenkins EC2
@@ -574,58 +775,76 @@ AWS VPC
 └── Intra Subnets
     └── EKS Control Plane
 
+```
 Public subnets are configured for internet-facing resources.
 
 Private subnets are used for EKS worker nodes.
 
 Intra subnets are used for the EKS control plane.
 
-NAT Gateway
+
+# NAT Gateway
+
 
 The development environment uses a single NAT Gateway.
 
 The Terraform configuration uses:
 
+```text
 enable_nat_gateway = true
 single_nat_gateway  = true
 
+```
 Using a single NAT Gateway reduces development infrastructure costs.
 
 Private EKS nodes use the NAT Gateway for outbound internet connectivity.
 
 For production environments, one NAT Gateway per Availability Zone can be used for improved availability.
 
-Jenkins Infrastructure
+
+# Jenkins Infrastructure
+
 
 Jenkins is deployed on an Ubuntu 24.04 LTS EC2 instance.
 
 The Jenkins instance uses:
 
+```text
 Operating System : Ubuntu 24.04 LTS
 Architecture     : x86_64
 Root Disk        : 30 GB gp3
 
+```
 The Jenkins server is deployed in a public subnet and receives a public IP address.
 
 The Jenkins Security Group allows:
 
+```text
 SSH
 HTTP
-HTTPS
+```
+
+## HTTPS
+
 Jenkins port 8080
 Outbound internet traffic
 
 Jenkins requires access to:
 
-GitHub
-Docker Hub
-AWS
+- GitHub
+- Docker Hub
+
+## AWS
+
 Trivy vulnerability databases
 GitOps repository
-Jenkins EC2 Security
+
+# Jenkins EC2 Security
+
 
 The Jenkins Security Group contains:
 
+```text
 SSH     : 22
 HTTP    : 80
 HTTPS   : 443
@@ -633,64 +852,86 @@ Jenkins : 8080
 
 SSH access is restricted using:
 
+```
 ssh_cidr
 
 Jenkins port 8080 is restricted using:
 
 jenkins_cidr
 
+```text
 HTTP and HTTPS are available for web access and reverse-proxy configurations.
 
-Bastion Host
+```
+
+# Bastion Host
+
 
 A Bastion Host is provisioned for administrative access.
 
 The Bastion Host uses:
 
+```text
 Operating System : Ubuntu 24.04 LTS
 Instance Type    : t3.micro
 Root Disk        : 10 GB gp3
 
+```
 The Bastion Host is deployed in a public subnet.
 
+```text
 SSH access is restricted using:
 
+```
 ssh_cidr
 
 The Bastion Host can be used for administrative access to the infrastructure and Kubernetes environment.
 
-EC2 Security
+
+# EC2 Security
+
 
 Both Jenkins and Bastion EC2 instances use:
 
+```text
 IMDSv2
 
+```
 Terraform configures:
 
+```text
 http_endpoint = enabled
 http_tokens   = required
 
+```
 Root EBS volumes are encrypted using:
 
+```text
 gp3
 
+```
 and are configured to be deleted when the instances are terminated.
 
-Amazon EKS
+
+# Amazon EKS
+
 
 Amazon EKS is used as the Kubernetes platform for running EasyShop.
 
 The cluster is configured with:
 
+```text
 Kubernetes Version : 1.34
 Endpoint           : Public
 
+```
 The EKS worker nodes are deployed in private subnets.
 
 The control plane uses the intra subnets.
 
 The managed node group is configured as:
 
+```text
 Node Group       : e-comm-ng
 Instance Type    : m7i-flex.large
 Capacity Type    : ON_DEMAND
@@ -699,64 +940,85 @@ Desired Nodes    : 2
 Maximum Nodes    : 3
 AMI              : AL2023 x86_64
 Disk Size        : 35 GB
-EKS Access
+```
+
+# EKS Access
+
 
 The Terraform configuration uses EKS access entries for cluster access.
 
 The configured IAM user is granted:
 
+```text
 AmazonEKSClusterAdminPolicy
 
+```
 Cluster creator admin permissions are also enabled.
 
 After creating the EKS cluster, configure kubectl:
 
+```text
 aws eks update-kubeconfig \
+```
   --region <AWS_REGION> \
   --name <EKS_CLUSTER_NAME>
 
 Verify access:
 
+```text
 kubectl get nodes
 
+```
 Check cluster information:
 
+```text
 kubectl cluster-info
-EKS Add-ons
+```
+
+# EKS Add-ons
+
 
 The following EKS add-ons are enabled:
 
-VPC CNI
-kube-proxy
-CoreDNS
-EKS Pod Identity Agent
+- VPC CNI
+- kube-proxy
+- CoreDNS
+- EKS Pod Identity Agent
 
 The VPC CNI is configured before compute resources are created.
 
 The add-ons are managed through Terraform.
 
-EKS API Security
+
+# EKS API Security
+
 
 Jenkins and the Bastion Host are allowed to access the EKS API.
 
 TCP port:
 
+```text
 443
 
+```
 is allowed from the Jenkins and Bastion Security Groups to the EKS cluster Security Group.
 
 This allows administrative and CI/CD components to communicate with the Kubernetes API.
 
-Jenkins CI Pipeline
+
+# Jenkins CI Pipeline
+
 
 Jenkins provides the Continuous Integration portion of the project.
 
 The Jenkins pipeline is triggered when code is pushed to the application GitHub repository.
 
+```text
 Application branch:
 
 master
 
+```
 A GitHub webhook notifies Jenkins when new commits are pushed.
 
 The pipeline performs:
@@ -769,14 +1031,20 @@ Docker image building
 Docker image security scanning
 Docker image pushing
 GitOps manifest update
-Jenkins Pipeline Stages
-1. Cleanup Workspace
+
+# Jenkins Pipeline Stages
+
+
+### 1. Cleanup Workspace
+
 
 The Jenkins workspace is cleaned before every build.
 
 This prevents files from previous builds from interfering with the current build.
 
-2. Clone Repository
+
+### 2. Clone Repository
+
 
 Jenkins clones the EasyShop application repository:
 
@@ -784,27 +1052,38 @@ https://github.com/sufiyannadeem/tws-e-commerce-app.git
 
 Branch:
 
+```text
 master
-3. Run Tests
+```
+
+### 3. Run Tests
+
 
 The application dependencies are installed and application tests are executed.
 
 The pipeline should stop if the test stage fails.
 
-4. Security Scan - Filesystem
+
+### 4. Security Scan - Filesystem
+
 
 Trivy scans the application filesystem.
 
 Example:
 
+```text
 trivy fs .
 
+```
 This identifies known vulnerabilities in the project dependencies and filesystem.
 
-5. Build Docker Images
+
+### 5. Build Docker Images
+
 
 Two Docker images are built.
 
+```text
 Application image:
 
 sufiyannadeem/easyshop-app:<BUILD_NUMBER>
@@ -812,24 +1091,35 @@ sufiyannadeem/easyshop-app:<BUILD_NUMBER>
 Migration image:
 
 sufiyannadeem/easyshop-migration:<BUILD_NUMBER>
-6. Security Scan - Docker Images
+```
+
+### 6. Security Scan - Docker Images
+
 
 The generated Docker images are scanned using Trivy.
 
 Example:
 
+```text
 trivy image sufiyannadeem/easyshop-app:<BUILD_NUMBER>
 
+```
 The migration image is also scanned.
 
-7. Push Docker Images
+
+### 7. Push Docker Images
+
 
 After successful validation and scanning, Jenkins pushes the images to Docker Hub.
 
+```text
 docker push sufiyannadeem/easyshop-app:<BUILD_NUMBER>
 
 docker push sufiyannadeem/easyshop-migration:<BUILD_NUMBER>
-8. Update GitOps Manifests
+```
+
+### 8. Update GitOps Manifests
+
 
 Jenkins clones the GitOps repository.
 
@@ -837,27 +1127,32 @@ The Kubernetes image tags are updated.
 
 The changes are committed and pushed to:
 
+```text
 main
 
+```
 The commit message follows:
 
 chore: update image tags to <BUILD_NUMBER>
 
 Argo CD detects the GitOps repository change.
 
-Docker and Docker Hub
+
+# Docker and Docker Hub
+
 
 Docker is used to containerize the EasyShop application.
 
 The application repository contains:
 
-Dockerfile
-Dockerfile.dev
+- Dockerfile
+- Dockerfile.dev
 
 The production Dockerfile is used by Jenkins.
 
 The migration workload uses a separate Docker image.
 
+```text
 Application image:
 
 sufiyannadeem/easyshop-app
@@ -866,62 +1161,95 @@ Migration image:
 
 sufiyannadeem/easyshop-migration
 
+```
 Image tags are based on the Jenkins build number.
 
 Example:
 
+```text
 easyshop-app:15
 easyshop-migration:15
-Docker Image Lifecycle
+```
+
+# Docker Image Lifecycle
+
 
 The image lifecycle is:
 
 Application Code
+```text
       |
       v
-Jenkins
+- Jenkins
       |
       v
+```
 Docker Build
+```text
       |
       v
+```
 Trivy Image Scan
+```text
       |
       v
-Docker Hub
+- Docker Hub
       |
       v
-GitOps Repository
+```
+
+## GitOps Repository
+
+```text
       |
       v
-Argo CD
+```
+
+## Argo CD
+
+```text
       |
       v
-Amazon EKS
-Security Scanning with Trivy
+```
+
+# Amazon EKS
+
+
+# Security Scanning with Trivy
+
 
 Trivy is integrated into the Jenkins CI pipeline.
 
 Trivy performs filesystem scanning:
 
+```text
 trivy fs .
 
+```
 Docker image scanning:
 
+```text
 trivy image <IMAGE_NAME>:<TAG>
 
+```
 The purpose of the security scanning stage is to identify known vulnerabilities before container images are deployed to Kubernetes.
 
-Jenkins Credentials
+
+# Jenkins Credentials
+
 
 Jenkins uses credentials to communicate securely with external services.
 
 The project uses:
 
+```text
 GitHub:
+```
 github-credentials
 
+```text
 Docker Hub:
+```
 dockerhub-credentails
 
 The Docker Hub credential ID contains the spelling:
@@ -934,7 +1262,9 @@ Credentials should be stored inside Jenkins Credentials Manager.
 
 Credentials should not be hardcoded inside the Jenkinsfile.
 
-Jenkins Shared Library
+
+# Jenkins Shared Library
+
 
 The project uses a Jenkins Shared Library for reusable pipeline functionality.
 
@@ -944,35 +1274,51 @@ https://github.com/sufiyannadeem/jenkins-shared-libraries
 
 Branch:
 
+```text
 main
 
 Configured library name:
 
 Shared
 
+```
 The shared library provides reusable Jenkins functions.
 
 One important function updates the Docker image tags in the GitOps repository.
 
 The workflow is:
 
-Jenkins
+- Jenkins
+```text
    |
    v
+```
 Clone GitOps Repository
+```text
    |
    v
+```
 Update Kubernetes Image Tags
+```text
    |
    v
+```
 Git Commit
+```text
    |
    v
+```
 Git Push
+```text
    |
    v
-GitOps Repository
-GitOps with Argo CD
+```
+
+## GitOps Repository
+
+
+# GitOps with Argo CD
+
 
 Argo CD is used for Continuous Delivery.
 
@@ -982,8 +1328,10 @@ https://github.com/sufiyannadeem/tws-e-commerce-gitops
 
 Branch:
 
+```text
 main
 
+```
 Argo CD continuously monitors the GitOps repository.
 
 When Jenkins updates a Docker image tag, Argo CD detects the change and synchronizes the Kubernetes resources.
@@ -998,7 +1346,9 @@ Kubernetes Deployment Configuration
 
 This provides a clear separation between CI and CD.
 
-Argo CD Application
+
+# Argo CD Application
+
 
 The Argo CD application is:
 
@@ -1014,6 +1364,7 @@ easyshop
 
 The Argo CD Application uses:
 
+```text
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -1037,6 +1388,7 @@ spec:
       selfHeal: true
 
     syncOptions:
+```
       - CreateNamespace=true
 
 The destination:
@@ -1045,29 +1397,41 @@ https://kubernetes.default.svc
 
 refers to the Kubernetes cluster where Argo CD is installed.
 
-Argo CD Automated Synchronization
+
+# Argo CD Automated Synchronization
+
 
 Argo CD uses:
 
+```text
 automated:
   prune: true
   selfHeal: true
 
+```
 This provides:
 
-Automated Deployment
+
+## Automated Deployment
+
 
 Git changes are automatically synchronized with Kubernetes.
 
-Pruning
+
+## Pruning
+
 
 Resources removed from Git can be removed from the Kubernetes environment.
 
-Self Healing
+
+## Self Healing
+
 
 If Kubernetes resources are manually changed, Argo CD can restore them to the desired state stored in Git.
 
-Kubernetes Deployment
+
+# Kubernetes Deployment
+
 
 EasyShop runs inside:
 
@@ -1081,33 +1445,46 @@ The Deployment manages multiple EasyShop replicas.
 
 The application is exposed internally through:
 
+```text
 easyshop-service
 
+```
 The service configuration is:
 
+```text
 Service Port : 80
 Target Port  : 3000
 
+```
 The EasyShop application listens on:
 
+```text
 3000
 
+```
 The Kubernetes Service provides stable internal networking for the application pods.
 
-EasyShop Kubernetes Architecture
+
+# EasyShop Kubernetes Architecture
+
 
 The application workload follows:
 
                     Kubernetes Namespace
                          easyshop
+```text
                             |
                             v
+```
                     EasyShop Deployment
+```text
                             |
                   +---------+---------+
                   |         |         |
                   v         v         v
+```
                 Pod       Pod       Pod
+```text
                   \         |         /
                    \        |        /
                     +-------+-------+
@@ -1116,8 +1493,11 @@ The application workload follows:
                     easyshop-service
                             |
                             v
+```
                       NGINX Ingress
-MongoDB
+
+# MongoDB
+
 
 MongoDB is deployed inside the EasyShop Kubernetes environment.
 
@@ -1129,105 +1509,155 @@ The application connects to MongoDB using the Kubernetes service name.
 
 The connection format is:
 
+```text
 mongodb://mongodb-service:27017/easyshop
 
+```
 MongoDB stores the application data required by EasyShop.
 
-Database Migration
+
+# Database Migration
+
 
 The project uses a separate database migration image.
 
+```text
 Migration image:
 
 sufiyannadeem/easyshop-migration:<BUILD_NUMBER>
 
+```
 The migration job connects to MongoDB using:
 
+```text
 mongodb://mongodb-service:27017/easyshop
 
+```
 The migration Kubernetes Job is configured as an Argo CD PreSync hook.
 
 This ensures database migrations run before the main application synchronization.
 
 The migration hook uses:
 
+```text
 argocd.argoproj.io/hook: PreSync
 
+```
 and:
 
+```text
 argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
 
+```
 This avoids Kubernetes Job immutability problems when a new migration image is deployed.
 
 Check migration jobs:
 
+```text
 kubectl get jobs -n easyshop
 
+```
 Check migration pods:
 
+```text
 kubectl get pods -n easyshop
 
+```
 A successful migration should show:
 
+```text
 Completed
-Database Migration Workflow
+```
+
+# Database Migration Workflow
+
 
 The migration workflow is:
 
-Jenkins
+- Jenkins
+```text
    |
    v
+```
 Build Migration Image
+```text
    |
    v
+```
 Trivy Scan
+```text
    |
    v
-Docker Hub
+- Docker Hub
    |
    v
-GitOps Repository
+```
+
+## GitOps Repository
+
+```text
    |
    v
-Argo CD
+```
+
+## Argo CD
+
+```text
    |
    v
+```
 PreSync Migration Job
+```text
    |
    v
-MongoDB
+```
+
+# MongoDB
+
+```text
    |
    v
+```
 Application Deployment
-Kubernetes ConfigMap
+
+# Kubernetes ConfigMap
+
 
 Non-sensitive application configuration can be stored using Kubernetes ConfigMaps.
 
 Examples include:
 
+```text
 NODE_ENV
 NEXT_PUBLIC_API_URL
 NEXTAUTH_URL
 MONGODB_URI
 
+```
 ConfigMaps should only contain non-sensitive configuration.
 
-Kubernetes Secrets
+
+# Kubernetes Secrets
+
 
 Sensitive values should be stored using Kubernetes Secrets.
 
 Examples include:
 
+```text
 NEXTAUTH_SECRET
 JWT_SECRET
 
+```
 Secrets should not be committed as plaintext values to public repositories.
 
 For production environments, use a dedicated secret-management solution where possible.
 
 If a secret is accidentally exposed in source control, rotate it immediately.
 
-NGINX Ingress Controller
+
+# NGINX Ingress Controller
+
 
 NGINX Ingress Controller is used to expose EasyShop outside the Kubernetes cluster.
 
@@ -1235,19 +1665,26 @@ The project uses a single NGINX Ingress Controller.
 
 Namespace:
 
+```text
 ingress-nginx
 
+```
 The NGINX controller is exposed using an AWS Load Balancer.
 
 Traffic flow:
 
 Internet
+```text
     |
     v
-AWS Load Balancer
+- AWS Load Balancer
     |
     v
-NGINX Ingress Controller
+```
+
+# NGINX Ingress Controller
+
+```text
     |
     v
 easyshop-ingress
@@ -1256,12 +1693,17 @@ easyshop-ingress
 easyshop-service
     |
     v
+```
 EasyShop Pods
 
 The EasyShop Ingress uses:
 
+```text
 Ingress Class: nginx
-EasyShop Domain
+```
+
+# EasyShop Domain
+
 
 The application uses:
 
@@ -1271,13 +1713,19 @@ The Kubernetes Ingress uses the same hostname.
 
 Verify the Ingress:
 
+```text
 kubectl get ingress -n easyshop
 
+```
 Example:
 
 NAME               CLASS   HOSTS                       ADDRESS
+```text
 easyshop-ingress   nginx   easyshop.nadeemsufiyan.in   <AWS-LOAD-BALANCER>
-HTTPS with cert-manager
+```
+
+# HTTPS with cert-manager
+
 
 cert-manager is used to automatically manage TLS certificates.
 
@@ -1285,8 +1733,10 @@ Let's Encrypt is used as the Certificate Authority.
 
 Production ClusterIssuer:
 
+```text
 letsencrypt-prod
 
+```
 Let's Encrypt production ACME endpoint:
 
 https://acme-v02.api.letsencrypt.org/directory
@@ -1297,46 +1747,66 @@ easyshop.nadeemsufiyan.in
 
 TLS secret:
 
+```text
 easyshop-tls-secret
 
+```
 The Ingress contains:
 
+```text
 cert-manager.io/cluster-issuer: letsencrypt-prod
 
 HTTPS traffic is terminated at the NGINX Ingress Controller.
 
-Let's Encrypt HTTP-01 Challenge
+```
+
+# Let's Encrypt HTTP-01 Challenge
+
 
 cert-manager uses the HTTP-01 challenge to validate domain ownership.
 
 The process is:
 
-cert-manager
+- cert-manager
+```text
      |
      v
-Let's Encrypt
+- Let's Encrypt
      |
      | HTTP-01 Challenge
      v
+```
 NGINX Ingress
+```text
      |
      v
-Kubernetes
+```
+
+## Kubernetes
+
 
 Port 80 must be publicly reachable during certificate validation.
 
 Check certificates:
 
+```text
 kubectl get certificates -n easyshop
 
+```
 Check certificate requests:
 
+```text
 kubectl get certificaterequests -n easyshop
 
+```
 Check cert-manager:
 
+```text
 kubectl get pods -n cert-manager
-DNS Configuration
+```
+
+# DNS Configuration
+
 
 Create a DNS record for:
 
@@ -1347,39 +1817,55 @@ The record should point to the AWS Load Balancer created for the NGINX Ingress C
 Expected traffic flow:
 
 easyshop.nadeemsufiyan.in
+```text
           |
           v
+```
          DNS
+```text
           |
           v
-AWS Load Balancer
+- AWS Load Balancer
           |
           v
-NGINX Ingress Controller
+```
+
+# NGINX Ingress Controller
+
+```text
           |
           v
 easyshop-service
           |
           v
+```
 EasyShop Pods
 
 Verify DNS:
 
+```text
 nslookup easyshop.nadeemsufiyan.in
 
+```
 or:
 
+```text
 dig easyshop.nadeemsufiyan.in
-Horizontal Pod Autoscaling
+```
+
+# Horizontal Pod Autoscaling
+
 
 Kubernetes Horizontal Pod Autoscaler is used to automatically scale the EasyShop Deployment.
 
 Current configuration:
 
+```text
 Minimum Replicas : 3
 Maximum Replicas : 5
 CPU Target       : 70%
 
+```
 The HPA monitors CPU utilization.
 
 When CPU utilization increases, Kubernetes can increase the number of application replicas.
@@ -1388,31 +1874,43 @@ When CPU utilization decreases, Kubernetes can reduce replicas while respecting 
 
 Check HPA:
 
+```text
 kubectl get hpa -n easyshop
 
+```
 Example:
 
 NAME           REFERENCE              TARGETS    MINPODS   MAXPODS   REPLICAS
 easyshop-hpa   Deployment/easyshop    3%/70%     3         5         3
-Metrics Server
+
+# Metrics Server
+
 
 Metrics Server provides resource metrics required by Kubernetes HPA.
 
 Check Metrics Server:
 
+```text
 kubectl get pods -n kube-system | grep metrics
 
+```
 Check node metrics:
 
+```text
 kubectl top nodes
 
+```
 Check pod metrics:
 
+```text
 kubectl top pods -n easyshop
 
+```
 Metrics Server is primarily used for Kubernetes resource metrics and HPA.
 
-Monitoring with Prometheus and Grafana
+
+# Monitoring with Prometheus and Grafana
+
 
 Prometheus and Grafana are used for monitoring the Kubernetes environment.
 
@@ -1420,36 +1918,52 @@ The project uses the kube-prometheus-stack.
 
 Add the Prometheus Community Helm repository:
 
+```text
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 
+```
 Update Helm repositories:
 
+```text
 helm repo update
 
+```
 Create monitoring namespace:
 
+```text
 kubectl create namespace monitoring
 
+```
 Install kube-prometheus-stack:
 
+```text
 helm install kube-prometheus-stack \
+```
   prometheus-community/kube-prometheus-stack \
   -n monitoring
 
 Check monitoring components:
 
+```text
 kubectl get pods -n monitoring
 
+```
 The monitoring stack provides:
 
-Prometheus
-Grafana
-Alertmanager
-Kubernetes monitoring
-Node metrics
-Cluster metrics
-Pod metrics
-Prometheus
+
+# Prometheus
+
+
+# Grafana
+
+- Alertmanager
+- Kubernetes monitoring
+- Node metrics
+- Cluster metrics
+- Pod metrics
+
+# Prometheus
+
 
 Prometheus collects metrics from the Kubernetes environment.
 
@@ -1460,13 +1974,17 @@ Memory utilization
 Pod status
 Node status
 Kubernetes resources
-Application metrics
+- Application metrics
 Cluster health
 
 Check Prometheus resources:
 
+```text
 kubectl get pods -n monitoring
-Grafana
+```
+
+# Grafana
+
 
 Grafana provides dashboards for visualizing collected metrics.
 
@@ -1482,29 +2000,41 @@ Prometheus metrics
 
 Grafana uses Prometheus as a metrics data source.
 
-Grafana Credentials
+
+# Grafana Credentials
+
 
 Grafana credentials can be retrieved from the Kubernetes Secret.
 
 Get the Grafana admin password:
 
+```text
 kubectl get secret kube-prometheus-stack-grafana \
+```
   -n monitoring \
+```text
   -o jsonpath="{.data.admin-password}" | base64 --decode
 
+```
 echo
 
 Get the Grafana admin username:
 
+```text
 kubectl get secret kube-prometheus-stack-grafana \
+```
   -n monitoring \
+```text
   -o jsonpath="{.data.admin-user}" | base64 --decode
 
+```
 echo
 
 The credentials should be treated as sensitive information.
 
-Argo CD Monitoring
+
+# Argo CD Monitoring
+
 
 Argo CD provides metrics endpoints that can be integrated into monitoring.
 
@@ -1518,16 +2048,25 @@ These metrics can be used to monitor Argo CD health and GitOps activity.
 
 Check Argo CD components:
 
+```text
 kubectl get pods -n argocd
 
+```
 Check Argo CD services:
 
+```text
 kubectl get svc -n argocd
-Complete CI/CD Workflow
+```
+
+# Complete CI/CD Workflow
+
 
 The complete CI/CD workflow is:
 
+
 1. Developer
+
+```text
       |
       v
 2. Push Code to GitHub
@@ -1580,224 +2119,385 @@ The complete CI/CD workflow is:
       |
       v
 13. End User
-CI and CD Separation
+```
+
+# CI and CD Separation
+
 
 The project separates Continuous Integration and Continuous Delivery.
 
-Continuous Integration
+
+## Continuous Integration
+
 
 Jenkins is responsible for:
 
 Code
+```text
  |
  v
+```
 Testing
+```text
  |
  v
+```
 Security Scan
+```text
  |
  v
+```
 Docker Build
+```text
  |
  v
+```
 Image Scan
+```text
  |
  v
-Docker Hub
-Continuous Delivery
+- Docker Hub
+```
+
+## Continuous Delivery
+
 
 Argo CD is responsible for:
 
-GitOps Repository
+
+## GitOps Repository
+
+```text
  |
  v
+```
 Detect Change
+```text
  |
  v
+```
 Synchronize
+```text
  |
  v
-Kubernetes
+```
+
+## Kubernetes
+
+```text
  |
  v
-EKS
+```
+
+## EKS
+
 
 This separation follows the GitOps deployment model.
 
-Deployment Verification
+
+# Deployment Verification
+
 
 After deployment, verify the Kubernetes namespace:
 
+```text
 kubectl get all -n easyshop
 
+```
 Check pods:
 
+```text
 kubectl get pods -n easyshop
 
+```
 Expected application pods should show:
 
+```text
 Running
 
+```
 Check Deployment:
 
+```text
 kubectl get deployment -n easyshop
 
+```
 Check Service:
 
+```text
 kubectl get svc -n easyshop
 
+```
 Check Ingress:
 
+```text
 kubectl get ingress -n easyshop
 
+```
 Check HPA:
 
+```text
 kubectl get hpa -n easyshop
 
+```
 Check certificates:
 
+```text
 kubectl get certificate -n easyshop
 
+```
 Check migration jobs:
 
+```text
 kubectl get jobs -n easyshop
 
+```
 Check Argo CD Application:
 
+```text
 kubectl get application -n argocd
 
+```
 Expected application status:
 
+```text
 Synced
 Healthy
-Application Health Verification
+```
+
+# Application Health Verification
+
 
 Check the application pods:
 
+```text
 kubectl get pods -n easyshop
 
+```
 Check application deployment:
 
+```text
 kubectl get deployment easyshop -n easyshop
 
+```
 Check endpoints:
 
+```text
 kubectl get endpoints easyshop-service -n easyshop
 
+```
 The service should have active application endpoints.
 
-Useful Kubernetes Commands
-View all resources
+
+# Useful Kubernetes Commands
+
+
+## View all resources
+
+```text
 kubectl get all -n easyshop
-View pods
+```
+
+## View pods
+
+```text
 kubectl get pods -n easyshop
-Watch pods
+```
+
+## Watch pods
+
+```text
 kubectl get pods -n easyshop -w
-Describe a pod
+```
+
+## Describe a pod
+
+```text
 kubectl describe pod <POD_NAME> -n easyshop
-View application logs
+```
+
+## View application logs
+
+```text
 kubectl logs deployment/easyshop -n easyshop
-View service
+```
+
+## View service
+
+```text
 kubectl get svc -n easyshop
-View ingress
+```
+
+## View ingress
+
+```text
 kubectl get ingress -n easyshop
-View HPA
+```
+
+## View HPA
+
+```text
 kubectl get hpa -n easyshop
-View resource metrics
+```
+
+## View resource metrics
+
+```text
 kubectl top pods -n easyshop
-View node metrics
+```
+
+## View node metrics
+
+```text
 kubectl top nodes
-View jobs
+```
+
+## View jobs
+
+```text
 kubectl get jobs -n easyshop
-View certificates
+```
+
+## View certificates
+
+```text
 kubectl get certificates -n easyshop
-View cert-manager pods
+```
+
+## View cert-manager pods
+
+```text
 kubectl get pods -n cert-manager
-View Argo CD applications
+```
+
+## View Argo CD applications
+
+```text
 kubectl get applications -n argocd
-Troubleshooting
-Pods Are Not Starting
+```
+
+# Troubleshooting
+
+
+## Pods Are Not Starting
+
 
 Check:
 
+```text
 kubectl get pods -n easyshop
 
+```
 Describe the pod:
 
+```text
 kubectl describe pod <POD_NAME> -n easyshop
 
+```
 Check logs:
 
+```text
 kubectl logs <POD_NAME> -n easyshop
 
+```
 Check recent events:
 
+```text
 kubectl get events -n easyshop --sort-by=.lastTimestamp
-ImagePullBackOff
+```
+
+## ImagePullBackOff
+
 
 If a pod shows:
 
-ImagePullBackOff
+
+## ImagePullBackOff
+
 
 check:
 
+```text
 kubectl describe pod <POD_NAME> -n easyshop
 
+```
 Verify that the Docker image exists in Docker Hub.
 
 Verify the image tag in the GitOps repository.
 
 Verify that the Kubernetes Deployment references the correct image.
 
-CrashLoopBackOff
+
+## CrashLoopBackOff
+
 
 If a pod shows:
 
-CrashLoopBackOff
+
+## CrashLoopBackOff
+
 
 check logs:
 
+```text
 kubectl logs <POD_NAME> -n easyshop
 
+```
 For a previous crashed container:
 
+```text
 kubectl logs <POD_NAME> -n easyshop --previous
 
+```
 Check:
 
-Environment variables
-Application configuration
-MongoDB connectivity
-Application startup errors
-Container configuration
-HPA Not Scaling
+- Environment variables
+- Application configuration
+- MongoDB connectivity
+- Application startup errors
+- Container configuration
+
+## HPA Not Scaling
+
 
 Check the HPA:
 
+```text
 kubectl get hpa -n easyshop
 
+```
 Check Metrics Server:
 
+```text
 kubectl top pods -n easyshop
 
+```
 If metrics are unavailable, verify Metrics Server is running.
 
 Also verify that CPU resource requests are configured for the application containers because HPA CPU utilization depends on resource requests.
 
-Argo CD Application OutOfSync
+
+## Argo CD Application OutOfSync
+
 
 Check:
 
+```text
 kubectl get application easyshop-app -n argocd
 
+```
 Check application details:
 
+```text
 argocd app get easyshop-app
 
+```
 Synchronize manually if required:
 
+```text
 argocd app sync easyshop-app
 
+```
 Verify:
 
 GitOps repository URL
@@ -1805,53 +2505,79 @@ GitOps branch
 Kubernetes manifest path
 Docker image tag
 Kubernetes namespace
-Database Migration Failure
+
+## Database Migration Failure
+
 
 Check migration jobs:
 
+```text
 kubectl get jobs -n easyshop
 
+```
 Check migration pods:
 
+```text
 kubectl get pods -n easyshop
 
+```
 Check migration logs:
 
+```text
 kubectl logs <MIGRATION_POD> -n easyshop
 
+```
 Verify MongoDB:
 
+```text
 kubectl get pods -n easyshop | grep mongodb
 
+```
 Verify MongoDB service:
 
+```text
 kubectl get svc mongodb-service -n easyshop
 
+```
 Verify the MongoDB connection string:
 
+```text
 mongodb://mongodb-service:27017/easyshop
-HTTPS Certificate Failure
+```
+
+## HTTPS Certificate Failure
+
 
 Check certificates:
 
+```text
 kubectl get certificates -n easyshop
 
+```
 Check CertificateRequests:
 
+```text
 kubectl get certificaterequests -n easyshop
 
+```
 Check cert-manager:
 
+```text
 kubectl get pods -n cert-manager
 
+```
 Check ClusterIssuers:
 
+```text
 kubectl get clusterissuer
 
+```
 Verify DNS:
 
+```text
 nslookup easyshop.nadeemsufiyan.in
 
+```
 Make sure:
 
 DNS points to the NGINX Load Balancer
@@ -1859,27 +2585,39 @@ Port 80 is publicly reachable
 NGINX Ingress is running
 cert-manager is running
 The ClusterIssuer is ready
-Ingress Not Working
+
+## Ingress Not Working
+
 
 Check the Ingress:
 
+```text
 kubectl get ingress -n easyshop
 
+```
 Check NGINX controller:
 
+```text
 kubectl get pods -n ingress-nginx
 
+```
 Check NGINX service:
 
+```text
 kubectl get svc -n ingress-nginx
 
+```
 Check Ingress events:
 
+```text
 kubectl describe ingress easyshop-ingress -n easyshop
 
+```
 Verify DNS points to the AWS Load Balancer.
 
-Jenkins Pipeline Failure
+
+## Jenkins Pipeline Failure
+
 
 If the Jenkins pipeline fails:
 
@@ -1894,39 +2632,51 @@ Verify the application branch is master.
 Check Jenkins Shared Library configuration.
 Verify the GitHub webhook.
 Verify Jenkins has internet connectivity.
-Docker Push Failure
+
+## Docker Push Failure
+
 
 If Docker image push fails:
 
 Check Docker login:
 
+```text
 docker login
 
+```
 Verify the image:
 
+```text
 docker images
 
+```
 Verify the repository name:
 
+```text
 sufiyannadeem/easyshop-app
 
+```
 and:
 
+```text
 sufiyannadeem/easyshop-migration
 
+```
 Verify Jenkins Docker Hub credentials.
 
-GitOps Update Failure
+
+## GitOps Update Failure
+
 
 If Jenkins cannot update the GitOps repository:
 
 Check:
 
-GitHub credentials
-Repository permissions
-Git branch
-Repository URL
-Git user configuration
+- GitHub credentials
+- Repository permissions
+- Git branch
+- Repository URL
+- Git user configuration
 
 The GitOps repository should be:
 
@@ -1934,12 +2684,19 @@ https://github.com/sufiyannadeem/tws-e-commerce-gitops
 
 Branch:
 
+```text
 main
-Infrastructure Summary
+```
+
+# Infrastructure Summary
+
 
 The AWS infrastructure consists of:
 
-AWS
+
+## AWS
+
+```text
 │
 ├── VPC
 │
@@ -1963,11 +2720,17 @@ AWS
     └── e-comm-ng
         ├── Node 1
         └── Node 2
-Infrastructure Components
+```
+
+# Infrastructure Components
+
 
 The main AWS components are:
 
-VPC
+
+## VPC
+
+```text
  |
  +-- Public Subnets
  |     |
@@ -1983,31 +2746,44 @@ VPC
        |
        +-- EKS Control Plane
 
-NAT Gateway
-Security Groups
+```
+
+# NAT Gateway
+
+- Security Groups
 IAM / EKS Access
-Infrastructure Configuration
+
+# Infrastructure Configuration
+
 
 The infrastructure includes:
 
-VPC CIDR
-Availability Zones
+- VPC CIDR
+- Availability Zones
 Public Subnets
 Private Subnets
 Intra Subnets
-NAT Gateway
-Security Groups
-Jenkins EC2
-Bastion Host
+
+# NAT Gateway
+
+- Security Groups
+- Jenkins EC2
+
+# Bastion Host
+
 EKS Cluster
 EKS Managed Node Group
-EKS Add-ons
+
+# EKS Add-ons
+
 
 The development environment uses one NAT Gateway to reduce infrastructure costs.
 
 EKS worker nodes are deployed in private subnets.
 
-Security Considerations
+
+# Security Considerations
+
 
 Security is implemented at multiple layers.
 
@@ -2018,13 +2794,15 @@ Bastion SSH access is restricted.
 EKS API access is controlled using EKS access entries.
 EKS worker nodes are deployed in private subnets.
 EC2 root volumes are encrypted.
+```text
 IMDSv2 is enabled on EC2 instances.
+```
 CI Security
 
 Trivy is used to scan:
 
-Application filesystem
-Docker images
+- Application filesystem
+- Docker images
 Kubernetes Security
 
 Sensitive configuration should be stored using Kubernetes Secrets instead of ConfigMaps.
@@ -2035,34 +2813,46 @@ GitHub and Docker Hub credentials are stored in Jenkins Credentials Manager.
 
 Credentials should never be hardcoded inside the Jenkinsfile.
 
-Secret Management
+
+## Secret Management
+
 
 Sensitive values such as:
 
+```text
 NEXTAUTH_SECRET
 JWT_SECRET
 
+```
 should not be committed to public repositories.
 
 If a secret is exposed, rotate it immediately.
 
-Production Improvements
+
+# Production Improvements
+
 
 The current project demonstrates a complete DevOps deployment architecture.
 
 For a production environment, the following improvements can be considered.
 
-High Availability NAT Gateway
+
+## High Availability NAT Gateway
+
 
 Use one NAT Gateway per Availability Zone instead of a single NAT Gateway.
 
-EKS Node Scaling
+
+## EKS Node Scaling
+
 
 Configure larger or multiple managed node groups based on workload requirements.
 
 Cluster Autoscaler or Karpenter can also be considered for dynamic node provisioning.
 
-Secret Management
+
+## Secret Management
+
 
 Use services such as:
 
@@ -2072,7 +2862,9 @@ External Secrets Operator
 
 instead of storing sensitive values directly in Kubernetes manifests.
 
-Database Production Architecture
+
+## Database Production Architecture
+
 
 For production workloads, consider:
 
@@ -2082,11 +2874,15 @@ Managed database architecture
 Automated backups
 Disaster recovery
 Multi-AZ database strategy
-EKS Endpoint Security
+
+## EKS Endpoint Security
+
 
 For higher security, consider restricting the EKS API endpoint and managing administrative access through controlled private networking.
 
-Network Security
+
+## Network Security
+
 
 Consider:
 
@@ -2095,28 +2891,34 @@ Network Firewall
 VPC endpoints
 Private endpoints
 Restricted Security Groups
-Container Security
+
+## Container Security
+
 
 Improve container security with:
 
-Minimal base images
-Non-root containers
-Image signing
-SBOM generation
-Runtime security
-Regular vulnerability scanning
-Monitoring
+- Minimal base images
+- Non-root containers
+- Image signing
+- SBOM generation
+- Runtime security
+- Regular vulnerability scanning
+
+## Monitoring
+
 
 Extend monitoring with:
 
-Alertmanager
-Alert rules
-Application metrics
-Log aggregation
-Centralized logging
-AWS CloudWatch
-Distributed tracing
-Project Highlights
+- Alertmanager
+- Alert rules
+- Application metrics
+- Log aggregation
+- Centralized logging
+- AWS CloudWatch
+- Distributed tracing
+
+# Project Highlights
+
 
 This project demonstrates practical implementation of:
 
@@ -2136,17 +2938,26 @@ Kubernetes workloads
 MongoDB deployment
 Database migration jobs
 NGINX Ingress
-AWS Load Balancer
-HTTPS with cert-manager
-Let's Encrypt
-Horizontal Pod Autoscaling
-Metrics Server
+- AWS Load Balancer
+
+# HTTPS with cert-manager
+
+- Let's Encrypt
+
+# Horizontal Pod Autoscaling
+
+
+# Metrics Server
+
 Prometheus monitoring
 Grafana dashboards
-End-to-End Architecture Summary
+
+# End-to-End Architecture Summary
+
 
 The complete architecture can be summarized as:
 
+```text
                            INTERNET
                               |
                               v
@@ -2176,47 +2987,73 @@ The complete architecture can be summarized as:
                 |            v             |
                 |         MongoDB          |
                 +--------------------------+
+```
                               ^
+```text
                               |
+```
                          ARGO CD / GITOPS
                               ^
+```text
                               |
+```
                        GITOPS REPOSITORY
                               ^
+```text
                               |
+```
                            JENKINS
                               ^
+```text
                               |
+```
                        GITHUB WEBHOOK
                               ^
+```text
                               |
+```
                      APPLICATION REPO
                               ^
+```text
                               |
+```
                          DEVELOPER
 
 Monitoring:
 
                          AMAZON EKS
+```text
                               |
                 +-------------+-------------+
                 |                           |
                 v                           v
+```
          Metrics Server                 Prometheus
+```text
                 |                           |
                 v                           v
+```
                HPA                       Grafana
+```text
                 |                           |
                 v                           v
+```
        Application Scaling          Monitoring Dashboards
-Final Deployment Result
+
+# Final Deployment Result
+
 
 After successful deployment, the expected environment contains:
 
 AWS Infrastructure
+```text
         |
         v
-Amazon EKS
+```
+
+# Amazon EKS
+
+```text
         |
         +--> EasyShop Deployment
         |
@@ -2238,27 +3075,41 @@ Amazon EKS
         |
         +--> Argo CD
 
+```
 The application is available through:
 
 https://easyshop.nadeemsufiyan.in
 
 The deployment is managed through a GitOps workflow where Jenkins updates the GitOps repository and Argo CD synchronizes the desired Kubernetes state with the EKS cluster.
 
-Useful Commands
-Terraform
+
+# Useful Commands
+
+
+## Terraform
+
+```text
 terraform init
 terraform validate
 terraform fmt -recursive
 terraform plan
 terraform apply
 terraform destroy
-AWS
+```
+
+## AWS
+
+```text
 aws sts get-caller-identity
 
 aws eks update-kubeconfig \
+```
   --region <AWS_REGION> \
   --name <EKS_CLUSTER_NAME>
-Kubernetes
+
+## Kubernetes
+
+```text
 kubectl get nodes
 
 kubectl get pods -A
@@ -2272,27 +3123,46 @@ kubectl get hpa -n easyshop
 kubectl top pods -n easyshop
 
 kubectl top nodes
-Argo CD
+```
+
+## Argo CD
+
+```text
 argocd app list
 
 argocd app get easyshop-app
 
 argocd app sync easyshop-app
-Docker
+```
+
+## Docker
+
+```text
 docker build -t sufiyannadeem/easyshop-app:<TAG> .
 
 docker push sufiyannadeem/easyshop-app:<TAG>
-Trivy
+```
+
+## Trivy
+
+```text
 trivy fs .
 
 trivy image sufiyannadeem/easyshop-app:<TAG>
-Helm
+```
+
+## Helm
+
+```text
 helm repo list
 
 helm list -A
 
 helm repo update
-Project Validation Checklist
+```
+
+# Project Validation Checklist
+
 
 Before considering the deployment complete, verify the following:
 
