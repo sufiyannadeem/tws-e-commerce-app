@@ -88,8 +88,8 @@ The project implements an automated CI/CD pipeline using Jenkins, Docker, Trivy,
 
 ### Pipeline Flow
 
-Developer
-    ↓
+Developer <br>
+    ↓ <br>
 GitHub Application Repository
     ↓
 GitHub Webhook
