@@ -32,24 +32,7 @@ stages {
         }
     }
 
-    stage('Check Commit') {
-        steps {
-            script {
-                def commitMessage = sh(
-                    script: 'git log -1 --pretty=%B',
-                    returnStdout: true
-                ).trim()
-
-                echo "Latest commit: ${commitMessage}"
-
-                if (commitMessage.contains('[skip ci]')) {
-                    echo "Jenkins-generated manifest commit detected. Skipping pipeline."
-                    currentBuild.result = 'NOT_BUILT'
-                    error('Skipping Jenkins-generated commit')
-            }
-        }
-    }
-}
+    
 
     // 1. Validate application BEFORE building Docker images
     stage('Run Tests') {
