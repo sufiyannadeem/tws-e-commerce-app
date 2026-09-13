@@ -143,11 +143,11 @@ A Jenkins Shared Library is used to keep reusable CI/CD logic separate from the 
 
 The shared library provides reusable functionality for tasks such as:
 
-Docker image building
-Docker image scanning
-Docker Hub authentication
-GitOps repository updates
-Updating Kubernetes image tags
+- Docker image building
+- Docker image scanning
+- Docker Hub authentication
+- GitOps repository updates
+- Updating Kubernetes image tags
 
 This approach keeps the Jenkinsfile cleaner and makes the pipeline logic reusable across projects.
 
@@ -171,14 +171,14 @@ The application is deployed on Amazon EKS using Kubernetes resources.
 
 The deployment includes:
 
-Deployment
-Service
-Ingress
-ConfigMap
-Secret
-HPA
-MongoDB
-Database migration Job
+- Deployment
+- Service
+- Ingress
+- ConfigMap
+- Secret
+- HPA
+- MongoDB
+- Database migration Job
 
 The EasyShop application runs with multiple replicas to provide availability and allow Kubernetes to distribute traffic between pods.
 
@@ -208,9 +208,9 @@ easyshop.nadeemsufiyan.in
 
 HTTPS certificates are automatically managed using:
 
-cert-manager
-Let's Encrypt
-Kubernetes TLS Secret
+- cert-manager
+- Let's Encrypt
+- Kubernetes TLS Secret
 
 This provides encrypted HTTPS communication between users and the application.
 
@@ -218,10 +218,10 @@ This provides encrypted HTTPS communication between users and the application.
 
 Horizontal Pod Autoscaler (HPA) is configured for the EasyShop application.
 
-Current configuration:
+Current configuration: <br>
 
-Minimum Replicas: 3
-Maximum Replicas: 5
+Minimum Replicas: 3 <br>
+Maximum Replicas: 5 <br>
 CPU Target: 70%
 
 When CPU utilization increases, Kubernetes can automatically increase the number of EasyShop pods.
@@ -246,16 +246,16 @@ AWS infrastructure is provisioned using Terraform.
 
 The Terraform configuration creates and manages:
 
-VPC
-Public and private subnets
-Internet Gateway
-NAT Gateway
-Security Groups
-Jenkins EC2 instance
-Bastion Host
-Amazon EKS Cluster
-EKS Managed Node Group
-EKS Add-ons
+- VPC
+- Public and private subnets
+- Internet Gateway
+- NAT Gateway
+- Security Groups
+- Jenkins EC2 instance
+- Bastion Host
+- Amazon EKS Cluster
+- EKS Managed Node Group
+- EKS Add-ons
 
 Using Terraform makes the infrastructure reproducible and version-controlled.
 
@@ -290,22 +290,23 @@ annotations:
 This allows the previous migration Job to be removed before creating the new Job during deployment.
 
 ## Key DevOps Practices Implemented
-Infrastructure as Code with Terraform
-AWS VPC and EKS
-Kubernetes container orchestration
-Jenkins CI/CD
-Jenkins Shared Library
-Docker containerization
-Trivy security scanning
-Docker Hub image registry
-GitOps deployment model
-Argo CD continuous delivery
-NGINX Ingress
-HTTPS with cert-manager and Let's Encrypt
-Kubernetes HPA
-Prometheus monitoring
-Grafana dashboards
-Automated database migrations
+
+- Infrastructure as Code with Terraform
+- AWS VPC and EKS
+- Kubernetes container orchestration
+- Jenkins CI/CD
+- Jenkins Shared Library
+- Docker containerization
+- Trivy security scanning
+- Docker Hub image registry
+- GitOps deployment model
+- Argo CD continuous delivery
+- NGINX Ingress
+- HTTPS with cert-manager and Let's Encrypt
+- Kubernetes HPA
+- Prometheus monitoring
+- Grafana dashboards
+- Automated database migrations
 
 ## Project Outcome
 
@@ -323,18 +324,18 @@ The EasyShop application is based on an MIT-licensed open-source project.
 
 The DevOps implementation focuses on designing and implementing the infrastructure and deployment workflow, including:
 
-AWS infrastructure using Terraform
-Amazon EKS
-Jenkins CI/CD
-Docker containerization
-Trivy security scanning
-Docker Hub
-GitOps with Argo CD
-NGINX Ingress
-HTTPS with cert-manager and Let's Encrypt
-Kubernetes HPA
-Prometheus and Grafana monitoring
-Automated database migration
+- AWS infrastructure using Terraform
+- Amazon EKS
+- Jenkins CI/CD
+- Docker containerization
+- Trivy security scanning
+- Docker Hub
+- GitOps with Argo CD
+- NGINX Ingress
+- HTTPS with cert-manager and Let's Encrypt
+- Kubernetes HPA
+- Prometheus and Grafana monitoring
+- Automated database migration
 
 
 
