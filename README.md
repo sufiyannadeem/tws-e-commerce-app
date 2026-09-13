@@ -119,3 +119,5 @@ The main goal of the project is to automate application delivery while making th
                          |                                    |
                          v                                    v
                         HPA                           Prometheus + Grafana
+
+<img src=".architecture.png" alt="EasyShop DevOps Architecture" width="100%">
