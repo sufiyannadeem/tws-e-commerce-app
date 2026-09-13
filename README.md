@@ -82,47 +82,31 @@ https://github.com/sufiyannadeem/tws-e-commerce-gitops.git
 
 Contains the Kubernetes manifests used by Argo CD for deployment.
 
-### Pipeline Flow
+## CI/CD Pipeline
 
-```mermaid
-flowchart LR
-    A[Developer] --> B[GitHub Application Repository]
-    B -->|Webhook| C[Jenkins]
-    C --> D[Run Tests]
-    D --> E[Trivy Filesystem Scan]
-    E --> F[Build Docker Images]
-    F --> G[Trivy Docker Image Scan]
-    G --> H[Push Images to Docker Hub]
-    H --> I[Update GitOps Repository]
-    I --> J[Argo CD]
-    J --> K[AWS EKS]
-```
+The project uses Jenkins to automate the continuous integration process and follows a GitOps-based deployment approach.
 
 ### Jenkins Pipeline Stages
 
 | Stage | Description |
 |---|---|
-| Cleanup Workspace | Removes files from previous builds |
-| Clone Repository | Clones the application source code |
-| Run Tests | Executes application tests |
-| Security Scan - Filesystem | Scans source code and dependencies using Trivy |
-| Build Docker Images | Builds EasyShop application and migration images |
-| Security Scan - Docker Images | Scans Docker images using Trivy |
-| Push Docker Images | Pushes verified images to Docker Hub |
-| Update GitOps Manifests | Updates image tags in the GitOps repository |
+| **Cleanup Workspace** | Removes files from previous builds |
+| **Clone Repository** | Clones the application source code from GitHub |
+| **Run Tests** | Runs application tests |
+| **Trivy Filesystem Scan** | Scans the source code and dependencies for vulnerabilities |
+| **Build Docker Images** | Builds the EasyShop application and database migration images |
+| **Trivy Docker Image Scan** | Scans the Docker images for vulnerabilities |
+| **Push Docker Images** | Pushes the verified images to Docker Hub |
+| **Update GitOps Manifests** | Updates the Docker image tags in the GitOps repository |
+| **Argo CD Deployment** | Argo CD detects the GitOps change and synchronizes the application to Amazon EKS |
 
-## Jenkins Pipeline Stages
+### CI/CD Workflow
 
-| Stage                         | Description                                      |
-| ----------------------------- | ------------------------------------------------ |
-| Cleanup Workspace             | Removes files from previous builds               |
-| Clone Repository              | Clones the application source code               |
-| Run Tests                     | Executes application tests                       |
-| Security Scan - Filesystem    | Scans source code and dependencies using Trivy   |
-| Build Docker Images           | Builds EasyShop application and migration images |
-| Security Scan - Docker Images | Scans Docker images using Trivy                  |
-| Push Docker Images            | Pushes verified images to Docker Hub             |
-| Update GitOps Manifests       | Updates image tags in the GitOps repository      |
+The overall workflow is:
+
+**GitHub → Jenkins → Test → Trivy Scan → Docker Build → Trivy Image Scan → Docker Hub → GitOps Repository → Argo CD → Amazon EKS**
+
+Jenkins performs the CI activities, while Argo CD handles the Kubernetes deployment using the GitOps repository as the source of truth.
 
 ## Docker Images
 
