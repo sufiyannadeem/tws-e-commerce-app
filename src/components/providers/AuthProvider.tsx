@@ -1,39 +1,58 @@
-'use client';
+"use client";
 
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { setAuthenticated, setCurrentUser } from '@/lib/features/auth/authSlice';
-import fetchData from '@/lib/fetchDataFromApi';
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import {
+  setAuthenticated,
+  setCurrentUser,
+} from "@/lib/features/auth/authSlice";
+import fetchData from "@/lib/fetchDataFromApi";
 
-export function AuthProvider({ children }: { children: React.ReactNode }) {
+export function AuthProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    let mounted = true;
+
     const checkAuthStatus = async () => {
       try {
-        const response = await fetch('/api/auth/check');
-        if (response.ok) {
-          // Get user data if authenticated
-          const userResponse = await fetchData.get('/auth/me');
-          if (userResponse?.data) {
-            dispatch(setCurrentUser(userResponse.data));
-            dispatch(setAuthenticated(true));
-          }
+        const response = await fetchData.get("/auth/me");
+
+        if (!mounted) return;
+
+        if (response?.status === 200 && response?.data) {
+          dispatch(setCurrentUser(response.data));
+          dispatch(setAuthenticated(true));
         } else {
-          // Clear auth state if not authenticated
-          dispatch(setAuthenticated(false));
           dispatch(setCurrentUser(null));
-          localStorage.removeItem('currentUser');
+          dispatch(setAuthenticated(false));
         }
-      } catch (error) {
-        console.error('Error checking auth status:', error);
-        dispatch(setAuthenticated(false));
+      } catch (error: any) {
+        if (!mounted) return;
+
+        console.log(
+          "User is not authenticated:",
+          error?.response?.status || "unknown"
+        );
+
         dispatch(setCurrentUser(null));
-        localStorage.removeItem('currentUser');
+        dispatch(setAuthenticated(false));
+
+        if (typeof window !== "undefined") {
+          localStorage.removeItem("currentUser");
+        }
       }
     };
 
     checkAuthStatus();
+
+    return () => {
+      mounted = false;
+    };
   }, [dispatch]);
 
   return <>{children}</>;
