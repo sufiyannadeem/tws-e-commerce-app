@@ -9,162 +9,129 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  addToCart,
-  handleColorChange,
-  handleSizeChange,
-} from "@/lib/features/cart/cartSlice";
-import { useAppSelector } from "@/lib/hooks";
-import Image from "next/image";
-import { useDispatch } from "react-redux";
-import colors from "@/data/colors.json";
-import { useEffect, useState } from "react";
-import Skeleton from "./loader/Skeleton";
 
-// const defaultSizes = ["XS", "SM", "MD", "LG", "XL", "XXL"];
+import Image from "next/image";
+import colors from "@/data/colors.json";
 
 type SelectVariantsProps = {
   productId: string;
   colors?: string[];
   sizes?: string[];
+  selectedColor?: string;
+  selectedSize?: string;
+  onColorChange?: (value: string) => void;
+  onSizeChange?: (value: string) => void;
 };
 
 export default function SelectVariants({
   colors: givenColors,
   sizes,
-  productId,
+  selectedColor,
+  selectedSize,
+  onColorChange,
+  onSizeChange,
 }: SelectVariantsProps) {
-  const dispatch = useDispatch();
-  const [isClient, setIsClient] = useState(false);
-  const { cartItems, selectedColor, selectedSize } = useAppSelector(
-    (state) => state.cartSlice
+  const availableColors = colors.filter((color) =>
+    givenColors?.includes(color.title.toLowerCase())
   );
 
-  // find the added item in carts
-  const cartItem = cartItems.find((item) => item.originalId === productId);
+  if (givenColors) {
+    return (
+      <Select
+        onValueChange={onColorChange}
+        value={selectedColor || ""}
+      >
+        <SelectTrigger className="w-[180px]">
+          <SelectValue placeholder="Select a color" />
+        </SelectTrigger>
 
-  // filtering which colors are available
-  const availableColors = colors.filter((col) =>
-    givenColors?.includes(col.title.toLowerCase())
-  );
+        <SelectContent>
+          <SelectGroup>
+            <SelectLabel>Select a Color</SelectLabel>
 
-  // handle color change
-  const onColorChange = (value: string) => {
-    dispatch(handleColorChange(value));
-    if (cartItem) {
-      dispatch(addToCart(cartItem));
-    }
-    return;
-  };
+            {availableColors.map((color) => (
+              <SelectItem
+                value={color.title.toLowerCase()}
+                key={color.title}
+                className="cursor-pointer"
+              >
+                <div className="flex gap-2 items-center">
+                  <Image
+                    src={color.img}
+                    alt={color.title}
+                    width={20}
+                    height={20}
+                    className="border rounded-full"
+                  />
 
-  // handle size change
-  const onSizeChange = (value: string) => {
-    dispatch(handleSizeChange(value));
-    if (cartItem) {
-      dispatch(addToCart(cartItem));
-    }
-    return;
-  };
+                  <p className="capitalize">{color.title}</p>
+                </div>
+              </SelectItem>
+            ))}
+          </SelectGroup>
+        </SelectContent>
+      </Select>
+    );
+  }
 
-  useEffect(() => {
-    setIsClient(true);
+  if (sizes) {
+    return (
+      <Select
+        onValueChange={onSizeChange}
+        value={selectedSize || ""}
+      >
+        <SelectTrigger className="w-fit">
+          <SelectValue placeholder="Select a size" />
+        </SelectTrigger>
 
-    return () => {};
-  }, []);
+        <SelectContent className="w-fit max-w-fit">
+          <SelectGroup>
+            <SelectLabel>Select a Size</SelectLabel>
 
-  // color select component
+            {sizes.map((size) => {
+              let sizeLabel = "";
 
-  if (isClient) {
-    if (givenColors) {
-      return (
-        <Select
-          onValueChange={onColorChange}
-          value={cartItem?.selectedColor || selectedColor || ""}
-        >
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Select a color" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
-              <SelectLabel>Select a Color</SelectLabel>
-              {availableColors.map((color) => (
+              switch (size.toLowerCase()) {
+                case "xs":
+                  sizeLabel = "extra-small";
+                  break;
+                case "sm":
+                  sizeLabel = "small";
+                  break;
+                case "md":
+                  sizeLabel = "medium";
+                  break;
+                case "lg":
+                  sizeLabel = "large";
+                  break;
+                case "xl":
+                  sizeLabel = "extra-large";
+                  break;
+                case "xxl":
+                  sizeLabel = "2extra-large";
+                  break;
+                default:
+                  sizeLabel = size;
+              }
+
+              return (
                 <SelectItem
-                  value={color.title}
-                  key={color.title}
+                  value={size}
+                  key={size}
                   className="cursor-pointer"
                 >
                   <div className="flex gap-2 items-center">
-                    <Image
-                      src={color.img}
-                      alt={color.title}
-                      width={20}
-                      height={20}
-                      className="border rounded-full"
-                    />
-                    <p className="capitalize">{color.title}</p>
+                    <p className="uppercase">{size}</p>
+                    <p className="text-sm">({sizeLabel})</p>
                   </div>
                 </SelectItem>
-              ))}
-            </SelectGroup>
-          </SelectContent>
-        </Select>
-      );
+              );
+            })}
+          </SelectGroup>
+        </SelectContent>
+      </Select>
+    );
+  }
 
-      // size select component
-    } else if (sizes) {
-      return (
-        <Select
-          onValueChange={onSizeChange}
-          value={cartItem?.selectedSize || selectedSize || ""}
-        >
-          <SelectTrigger className="w-fit">
-            <SelectValue placeholder="Select a size" />
-          </SelectTrigger>
-          <SelectContent className="w-fit max-w-fit">
-            <SelectGroup>
-              <SelectLabel>Select a Size</SelectLabel>
-              {sizes.map((size) => {
-                let sizeLabel = "";
-
-                switch (size.toLowerCase()) {
-                  case "xs":
-                    sizeLabel = "extra-small";
-                    break;
-                  case "sm":
-                    sizeLabel = "small";
-                    break;
-                  case "md":
-                    sizeLabel = "medium";
-                    break;
-                  case "lg":
-                    sizeLabel = "large";
-                    break;
-                  case "xl":
-                    sizeLabel = "extra-large";
-                    break;
-                  case "xxl":
-                    sizeLabel = "2extra-large";
-                    break;
-                  default:
-                    sizeLabel = sizeLabel;
-                }
-                return (
-                  <SelectItem
-                    value={size}
-                    key={size}
-                    className="cursor-pointer"
-                  >
-                    <div className="flex gap-2 items-center">
-                      <p className="uppercase">{size}</p>
-                      <p className="text-sm">({sizeLabel})</p>
-                    </div>
-                  </SelectItem>
-                );
-              })}
-            </SelectGroup>
-          </SelectContent>
-        </Select>
-      );
-    }
-  } else return <Skeleton className="h-10 w-[140px] rounded-lg bg-secondary" />;
+  return null;
 }

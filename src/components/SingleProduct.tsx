@@ -1,5 +1,8 @@
+"use client";
+
 import { EmblaOptionsType } from "embla-carousel";
 import Link from "next/link";
+import { useState } from "react";
 import AddToCartBtnWrapper from "./AddToCartWrapper";
 import AddToWishlist from "./AddToWishlist";
 import Counter from "./Counter";
@@ -26,9 +29,13 @@ const SingleProduct = ({ product }: SingleProductProps) => {
     rating,
   } = product;
 
+  const [selectedColor, setSelectedColor] = useState<string>("");
+  const [selectedSize, setSelectedSize] = useState<string>("");
+
   return (
     <div className="container pb-16 pt-10">
       <HistoryBackBtn />
+
       <div className="flex gap-10 mt-6 flex-col md:flex-row">
         <div className="img w-full md:w-2/5 max-w-md mx-auto">
           <ProductImageSlider images={image} options={OPTIONS} />
@@ -41,12 +48,14 @@ const SingleProduct = ({ product }: SingleProductProps) => {
           </div>
 
           <RatingStar ratingNumber={rating} className="mt-2" />
+
           <div className="flex gap-3 items-end mt-4">
             <p className="text-2xl text-primary font-semibold">
               ${product.price.toFixed(2)}
             </p>
+
             {product?.oldPrice && (
-              <del className="text-gray-400 font-semibold">
+              <del className="text-muted-foreground">
                 ${product.oldPrice.toFixed(2)}
               </del>
             )}
@@ -54,25 +63,38 @@ const SingleProduct = ({ product }: SingleProductProps) => {
 
           {product?.amount && (
             <p className="mt-4 first-letter:capitalize">
-              availale {product?.amount} {product?.unit_of_measure}
+              available {product.amount} {unit_of_measure}
             </p>
           )}
 
-          <p className="mt-4 text-muted-foreground">{product?.description}</p>
+          <p className="mt-4 text-muted-foreground">
+            {product?.description}
+          </p>
 
           <div className="flex gap-x-4 items-center flex-wrap">
-            {product?.colors && (
+            {product?.colors && product.colors.length > 0 && (
               <div className="mt-4">
-                <SelectVariants colors={product.colors} productId={originalId} />
+                <SelectVariants
+                  colors={product.colors}
+                  productId={originalId}
+                  selectedColor={selectedColor}
+                  onColorChange={setSelectedColor}
+                />
               </div>
             )}
 
-            {product?.sizes && (
+            {product?.sizes && product.sizes.length > 0 && (
               <div className="mt-4">
-                <SelectVariants sizes={product.sizes} productId={originalId} />
+                <SelectVariants
+                  sizes={product.sizes}
+                  productId={originalId}
+                  selectedSize={selectedSize}
+                  onSizeChange={setSelectedSize}
+                />
               </div>
             )}
           </div>
+
           <div className="flex gap-4 items-center mt-5">
             <Counter
               quantity={product?.amount}
@@ -93,36 +115,24 @@ const SingleProduct = ({ product }: SingleProductProps) => {
                 title,
                 description: product.description || "",
                 price,
-                categories: product.categories || [],
+                categories: categories || [],
                 image,
                 unit_of_measure,
                 shop_category,
               }}
+              selectedColor={selectedColor}
+              selectedSize={selectedSize}
             />
           </div>
 
-          <p className="mt-7 flex gap-2 items-center flex-wrap whitespace-nowrap">
-            <strong>Categories:</strong>
-            {categories.map((item) => (
-              <Link
-                href={`/shops/${shop_category}/${item}`}
-                key={item}
-                className="py-1 px-2 rounded-sm border text-sm text-muted-foreground hover:text-primary hover:border-primary transition-colors duration-200"
-              >
-                {item}
-              </Link>
-            ))}
-          </p>
-
-          <p className="mt-4 flex gap-2 items-center">
-            <strong>Shop:</strong>
+          <div className="mt-6">
             <Link
-              href={`/shops/${shop_category}`}
-              className="text-muted-foreground capitalize hover:underline hover:text-primary"
+              href={`/shop/${shop_category}`}
+              className="text-primary hover:underline"
             >
-              {shop_category}
+              More products from {shop_category}
             </Link>
-          </p>
+          </div>
         </div>
       </div>
     </div>
