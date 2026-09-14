@@ -1,12 +1,12 @@
 "use client";
 
-import { authenticated, removeCookies } from "@/app/actions";
+import { removeCookies } from "@/app/actions";
 import Logo from "@/assets/Logo";
 import { setAuthenticated } from "@/lib/features/auth/authSlice";
 import { useAppSelector } from "@/lib/hooks";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { HiMenuAlt2 } from "react-icons/hi";
 import { IoChevronDownOutline } from "react-icons/io5";
 import { FaGithub } from "react-icons/fa";
@@ -16,9 +16,9 @@ import Modal from "./Modal";
 import { ProfileMenu } from "./ProfileMenu";
 import SearchBar from "./SearchBar";
 import { ToggleTheme } from "./ToggleTheme";
+import { Button } from "./ui/button";
 import { LoginForm } from "./forms/LoginForm";
 import SignupForm from "./forms/SignupForm";
-import { Button } from "./ui/button";
 
 const links = [
   {
@@ -29,7 +29,6 @@ const links = [
     title: "Contact",
     url: "/contact",
   },
-
   {
     title: "Offers",
     url: "/offers",
@@ -60,36 +59,28 @@ const links = [
 
 const Navbar = () => {
   const router = useRouter();
+
   const [isOpen, setIsOpen] = useState(false);
   const [isConfirm, setIsConfirm] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
-  // from redux
-  const { isAuthenticated } = useAppSelector((state) => state.authSlice);
+  const { isAuthenticated } = useAppSelector(
+    (state) => state.authSlice
+  );
+
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    const authentication = async () => {
-      try {
-        const res = await authenticated();
-        dispatch(setAuthenticated(res));
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    authentication();
-    return () => {};
-  }, [dispatch, isAuthenticated]);
 
   const handleLogout = async () => {
     try {
       await removeCookies();
+
       setIsConfirm(false);
+
       dispatch(setAuthenticated(false));
+
       router.push("/login");
     } catch (error) {
-      console.log(error);
+      console.log("Logout error:", error);
     }
   };
 
@@ -110,18 +101,23 @@ const Navbar = () => {
               <div className="links hidden lg:block">
                 <ul className="flex gap-6 items-center">
                   {links.map((link) => (
-                    <li className="group relative" key={link.url}>
+                    <li
+                      className="group relative"
+                      key={link.url}
+                    >
                       <Link
                         href={link.url}
                         className="flex gap-1 items-center group-hover:text-primary transition-colors duration-300"
                       >
                         <span>{link.title}</span>
+
                         {link.subLinks && (
                           <span>
                             <IoChevronDownOutline />
                           </span>
                         )}
                       </Link>
+
                       {link.subLinks && (
                         <ul className="invisible scale-95 translate-y-2 opacity-0 absolute top-[130%] right-0 w-[160px] border bg-card rounded-lg transition-all duration-150 shadow-lg p-0.5 group-hover:visible group-hover:scale-100 group-hover:translate-y-0 group-hover:opacity-100">
                           {link.subLinks.map((link) => (
@@ -141,12 +137,15 @@ const Navbar = () => {
                 </ul>
               </div>
             </div>
-            {/* mobile menu */}
+
+            {/* Mobile menu */}
             <button
               type="button"
               className="menu text-3xl hidden md:block lg:hidden"
               title="menu"
-              onClick={() => setIsMobileOpen(!isMobileOpen)}
+              onClick={() =>
+                setIsMobileOpen(!isMobileOpen)
+              }
             >
               <HiMenuAlt2 />
             </button>
@@ -156,9 +155,11 @@ const Navbar = () => {
                 <ProfileMenu setIsOpen={setIsConfirm} />
               </div>
             )}
+
             <div className="hidden lg:block">
               <ToggleTheme />
             </div>
+
             <Button
               variant="outline"
               size="sm"
@@ -175,6 +176,7 @@ const Navbar = () => {
                 <span>Source Code</span>
               </a>
             </Button>
+
             {!isAuthenticated && (
               <Link href="/login">
                 <Button>Join</Button>
@@ -184,18 +186,27 @@ const Navbar = () => {
         </nav>
       </div>
 
-      <MobileMenu isOpen={isMobileOpen} setIsOpen={setIsMobileOpen} />
+      <MobileMenu
+        isOpen={isMobileOpen}
+        setIsOpen={setIsMobileOpen}
+      />
 
-      {/* logout confirmation */}
+      {/* Logout confirmation */}
       <Modal
         isOpen={isConfirm}
         setIsOpen={setIsConfirm}
         className="w-fit h-fit"
       >
         <div className="p-5 rounded-lg flex flex-col justify-center items-center text-center gap-3">
-          <h2 className="text-lg">Are you sure to logout?</h2>
+          <h2 className="text-lg">
+            Are you sure to logout?
+          </h2>
+
           <div className="flex justify-between items-center gap-4">
-            <Button type="button" onClick={() => setIsConfirm(false)}>
+            <Button
+              type="button"
+              onClick={() => setIsConfirm(false)}
+            >
               <span>No</span>
             </Button>
 

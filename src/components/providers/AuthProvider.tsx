@@ -16,43 +16,36 @@ export function AuthProvider({
   const dispatch = useDispatch();
 
   useEffect(() => {
-    let mounted = true;
-
     const checkAuthStatus = async () => {
       try {
         const response = await fetchData.get("/auth/me");
 
-        if (!mounted) return;
+        if (response?.data) {
+          const user = response.data;
 
-        if (response?.status === 200 && response?.data) {
-          dispatch(setCurrentUser(response.data));
+          dispatch(
+            setCurrentUser({
+              id: user.id || user._id?.toString(),
+              name: user.name,
+              email: user.email,
+              role: user.role,
+            })
+          );
+
           dispatch(setAuthenticated(true));
         } else {
-          dispatch(setCurrentUser(null));
           dispatch(setAuthenticated(false));
+          dispatch(setCurrentUser(null));
         }
-      } catch (error: any) {
-        if (!mounted) return;
+      } catch (error) {
+        console.log("User is not authenticated");
 
-        console.log(
-          "User is not authenticated:",
-          error?.response?.status || "unknown"
-        );
-
-        dispatch(setCurrentUser(null));
         dispatch(setAuthenticated(false));
-
-        if (typeof window !== "undefined") {
-          localStorage.removeItem("currentUser");
-        }
+        dispatch(setCurrentUser(null));
       }
     };
 
     checkAuthStatus();
-
-    return () => {
-      mounted = false;
-    };
   }, [dispatch]);
 
   return <>{children}</>;

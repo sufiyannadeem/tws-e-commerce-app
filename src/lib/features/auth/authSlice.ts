@@ -1,27 +1,23 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-// Define a type for the slice state
 export type User = {
-  id: number;
+  id: string;
   name: string;
   email: string;
+  role?: string;
 };
 
-export interface AuthState {
+interface AuthState {
   isAuthenticated: boolean;
   currentUser: User | null;
 }
 
-// Define the initial state using that type
 const initialState: AuthState = {
   isAuthenticated: false,
-  currentUser:
-    (typeof window !== "undefined" &&
-      JSON.parse(localStorage.getItem("currentUser") as string)) ||
-    null,
+  currentUser: null,
 };
 
-export const authSlice = createSlice({
+const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
@@ -29,21 +25,21 @@ export const authSlice = createSlice({
       state.isAuthenticated = action.payload;
     },
 
-    removeCurrentUser: (state) => {
-      state.currentUser = null;
-    },
-
     setCurrentUser: (state, action: PayloadAction<User | null>) => {
       state.currentUser = action.payload;
-      if (action.payload) {
-        localStorage.setItem("currentUser", JSON.stringify(action.payload));
-      } else {
-        localStorage.removeItem("currentUser");
-      }
+    },
+
+    removeCurrentUser: (state) => {
+      state.currentUser = null;
+      state.isAuthenticated = false;
     },
   },
 });
 
-export const { setAuthenticated, removeCurrentUser, setCurrentUser } =
-  authSlice.actions;
+export const {
+  setAuthenticated,
+  setCurrentUser,
+  removeCurrentUser,
+} = authSlice.actions;
+
 export default authSlice.reducer;
