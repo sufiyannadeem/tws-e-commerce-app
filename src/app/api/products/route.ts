@@ -48,10 +48,18 @@ export async function GET(request: NextRequest) {
 
     // Sorting
     let sort: any = { createdAt: -1 };
-    if (searchParams.has('sort')) {
-      const [field, order] = (searchParams.get('sort') as string).split(':');
-      sort = { [field]: order === 'desc' ? -1 : 1 };
-    }
+
+    const sortParam = searchParams.get('sort');
+
+    if (sortParam && sortParam.trim() !== '') {
+      const [field, order] = sortParam.split(':');
+
+      if (field && field.trim() !== '') {
+        sort = {
+          [field.trim()]: order === 'desc' ? -1 : 1,
+    };
+  }
+}
 
     const products = await Product.find(query)
       .sort(sort)
