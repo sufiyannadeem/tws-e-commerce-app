@@ -1,6 +1,5 @@
 import fetchData from "@/lib/fetchDataFromApi";
 import layoutSettings from "@/lib/layoutSettings";
-import { rgx } from "@/lib/utils";
 import ProductCard from "./cards/ProductCard";
 
 type RelatedProductsProps = {
@@ -12,24 +11,39 @@ const RelatedProducts = async ({
   category,
   shop_category,
 }: RelatedProductsProps) => {
-  const res = await fetchData.get(`/products/${shop_category}/${category}`, {
-    limit: "5",
-  });
+  try {
+    const res = await fetchData.get("/products", {
+      limit: "5",
+      shop_category,
+      categories: category,
+    });
 
-  const products: AllProduct[] = res.data.products || [];
-  const settings = layoutSettings?.[shop_category];
+    const products: AllProduct[] = res.data?.products || [];
+    const settings = layoutSettings?.[shop_category];
 
-  return (
-    <>
-      {products.map((product) => (
-        <ProductCard
-          product={product}
-          variants={settings.productCardVariants}
-          key={product.originalId}
-        />
-      ))}
-    </>
-  );
+    if (!settings) {
+      return null;
+    }
+
+    return (
+      <>
+        {products.map((product) => (
+          <ProductCard
+            product={product}
+            variants={settings.productCardVariants}
+            key={product.originalId}
+          />
+        ))}
+      </>
+    );
+  } catch (error) {
+    console.error(
+      `Failed to load related products for ${shop_category}/${category}:`,
+      error
+    );
+
+    return null;
+  }
 };
 
 export default RelatedProducts;
