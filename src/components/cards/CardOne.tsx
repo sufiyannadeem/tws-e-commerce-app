@@ -4,7 +4,7 @@ import Link from "next/link";
 import AddToCartBtnWrapper from "../AddToCartWrapper";
 
 const CardOne = ({
-  _id,
+  originalId,
   title,
   price,
   image,
@@ -15,7 +15,7 @@ const CardOne = ({
   return (
     <div className="card-one bg-secondary p-3 md:p-4 rounded-lg relative hover:-translate-y-1 hover:shadow-xl transition-all duration-300">
       <Link
-        href={`/products/${_id}`}
+        href={`/products/${originalId}`}
         className="absolute top-0 left-0 w-full h-full"
       />
       {/* discount */}
@@ -53,7 +53,7 @@ const CardOne = ({
           <div className="mt-3">
             <AddToCartBtnWrapper
               product={{
-                _id,
+                originalId,
                 title,
                 description: "",
                 image,

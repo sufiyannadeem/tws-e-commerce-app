@@ -172,18 +172,18 @@ const AddedCart = () => {
                           variants={item}
                           layout
                           className="relative"
-                          key={c._id}
+                          key={c.originalId}
                         >
                           <Button
                             type="button"
                             variant="outline"
                             className="absolute top-0 right-2 h-7 w-7 p-0 text-base rounded-full hover:text-primary hover:border-primary"
-                            onClick={() => dispatch(removeFromCart(c._id))}
+                            onClick={() => dispatch(removeFromCart(c.originalId))}
                           >
                             <HiMiniXMark />
                           </Button>
                           <Link
-                            href={`/products/${c._id}`}
+                            href={`/products/${c.originalId}`}
                             className="flex gap-3 items-center mt-3 p-2 hover:bg-accent rounded-xl overflow-hidden"
                             onClick={() => dispatch(handleCartOpen())}
                           >

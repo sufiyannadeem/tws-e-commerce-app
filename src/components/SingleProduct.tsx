@@ -16,7 +16,7 @@ const OPTIONS: EmblaOptionsType = {};
 
 const SingleProduct = ({ product }: SingleProductProps) => {
   const {
-    _id,
+    originalId,
     title,
     image,
     shop_category,
@@ -63,13 +63,13 @@ const SingleProduct = ({ product }: SingleProductProps) => {
           <div className="flex gap-x-4 items-center flex-wrap">
             {product?.colors && (
               <div className="mt-4">
-                <SelectVariants colors={product.colors} productId={_id} />
+                <SelectVariants colors={product.colors} productId={originalId} />
               </div>
             )}
 
             {product?.sizes && (
               <div className="mt-4">
-                <SelectVariants sizes={product.sizes} productId={_id} />
+                <SelectVariants sizes={product.sizes} productId={originalId} />
               </div>
             )}
           </div>
@@ -77,7 +77,7 @@ const SingleProduct = ({ product }: SingleProductProps) => {
             <Counter
               quantity={product?.amount}
               product={{
-                _id,
+                originalId,
                 title,
                 image: [image[0]],
                 price,
@@ -89,7 +89,7 @@ const SingleProduct = ({ product }: SingleProductProps) => {
             <AddToCartBtnWrapper
               btnStyle="withoutCounter"
               product={{
-                _id,
+                originalId,
                 title,
                 description: product.description || "",
                 price,

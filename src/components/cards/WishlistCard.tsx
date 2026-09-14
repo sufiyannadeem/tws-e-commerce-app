@@ -6,14 +6,14 @@ import AddToCartBtnWrapper from "../AddToCartWrapper";
 import AddToWishlist from "../AddToWishlist";
 
 const WishlistCard = (props: AllProduct) => {
-  const { _id, title, price, image, oldPrice, unit_of_measure, shop_category } =
+  const { originalId, title, price, image, oldPrice, unit_of_measure, shop_category } =
     props;
   return (
     <div className="wishlist-card bg-secondary p-2.5 md:p-4 rounded-lg relative hover:-translate-y-1 hover:shadow-xl transition-all duration-300 border">
       <div className="absolute top-3 right-3">
         <AddToWishlist product={props} />
       </div>
-      <Link href={`/products/${_id}`}>
+      <Link href={`/products/${originalId}`}>
         <div className="img">
           <Image
             src={image[0]}
@@ -41,7 +41,7 @@ const WishlistCard = (props: AllProduct) => {
         <AddToCartBtnWrapper
           btnStyle="style-4"
           product={{
-            _id,
+            originalId,
             title,
             description: "",
             image,

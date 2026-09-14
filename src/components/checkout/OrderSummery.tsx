@@ -78,7 +78,7 @@ const OrderSummery = ({ shippingData, billingData }: OrderSummeryProps) => {
         billingAddress: billingData,
         paymentMethod: selectedMethod,
         items: cartItems.map(item => ({
-          productId: item._id,
+          productId: item.originalId,
           quantity: item.amount || 1,
           price: item.price
         })),
@@ -90,7 +90,7 @@ const OrderSummery = ({ shippingData, billingData }: OrderSummeryProps) => {
         billingAddress: billingData,
         paymentMethod: selectedMethod,
         items: cartItems.map(item => ({
-          productId: item._id,
+          productId: item.originalId,
           quantity: item.amount || 1,
           price: item.price
         })),
@@ -115,11 +115,11 @@ const OrderSummery = ({ shippingData, billingData }: OrderSummeryProps) => {
       }
 
       // Clear cart and redirect on success
-      cartItems.forEach(item => dispatch(removeFromCart(item._id)));
+      cartItems.forEach(item => dispatch(removeFromCart(item.originalId)));
       window.location.href = '/checkout/success';
 
       // Clear cart and redirect to success page
-      cartItems.forEach(item => dispatch(removeFromCart(item._id)));
+      cartItems.forEach(item => dispatch(removeFromCart(item.originalId)));
       window.location.href = '/checkout/success';
 
     } catch (error: any) {
@@ -143,20 +143,20 @@ const OrderSummery = ({ shippingData, billingData }: OrderSummeryProps) => {
           {cartItems.map((item) => (
             <motion.div
               layout
-              key={item._id}
+              key={item.originalId}
               className="group flex justify-between items-end py-3 hover:bg-accent px-3 rounded-lg relative"
             >
               <Button
                 type="button"
                 variant="outline"
                 className="absolute top-1 right-2 h-7 w-7 p-0 text-base rounded-full hover:text-primary hover:border-primary hidden group-hover:flex"
-                onClick={() => dispatch(removeFromCart(item._id))}
+                onClick={() => dispatch(removeFromCart(item.originalId))}
               >
                 <HiMiniXMark />
               </Button>
               <div className="flex gap-3">
                 <div className="relative w-[50px] h-[50px]">
-                  {!imageErrors[item._id] ? (
+                  {!imageErrors[item.originalId] ? (
                     <Image
                       src={getImageSrc(item)}
                       alt={item.title}
@@ -165,7 +165,7 @@ const OrderSummery = ({ shippingData, billingData }: OrderSummeryProps) => {
                       className="object-cover rounded-md"
                       onError={() => {
                         console.error(`Failed to load image for product: ${item.title}`);
-                        setImageErrors(prev => ({ ...prev, [item._id]: true }));
+                        setImageErrors(prev => ({ ...prev, [item.originalId]: true }));
                       }}
                       priority
                     />
@@ -177,7 +177,7 @@ const OrderSummery = ({ shippingData, billingData }: OrderSummeryProps) => {
                 </div>
                 <div>
                   <Link
-                    href={`/products/${item._id}`}
+                    href={`/products/${item.originalId}`}
                     className="text-sm font-medium hover:text-primary"
                   >
                     {item.title}

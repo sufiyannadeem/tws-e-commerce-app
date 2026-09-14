@@ -7,7 +7,7 @@ import { discountPercent } from "@/lib/utils";
 import { useState } from "react";
 
 const CardTwo = ({
-  _id,
+  originalId,
   title,
   image,
   price,
@@ -19,7 +19,7 @@ const CardTwo = ({
   return (
     <div className="card-two bg-secondary p-2.5 md:p-4 rounded-lg relative hover:-translate-y-1 hover:shadow-xl transition-all duration-300">
       <Link
-        href={`/products/${_id}`}
+        href={`/products/${originalId}`}
         className="absolute top-0 left-0 w-full h-full"
       />
       {/* discount */}
@@ -66,7 +66,7 @@ const CardTwo = ({
 
           <AddToCartBtnWrapper
             product={{
-              _id,
+              originalId,
               title,
               description: "",
               image,

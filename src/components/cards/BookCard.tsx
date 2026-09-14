@@ -4,7 +4,7 @@ import AddToCartBtnWrapper from "../AddToCartWrapper";
 import Link from "next/link";
 
 const BookCard = ({
-  _id,
+  originalId,
   title,
   price,
   oldPrice,
@@ -19,7 +19,7 @@ const BookCard = ({
 }: BooksProduct) => {
   return (
     <div className="book-card bg-secondary p-4 rounded-lg hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
-      <Link href={`/products/${_id}`}>
+      <Link href={`/products/${originalId}`}>
         <div className="rounded-sm overflow-hidden">
           <Image src={image[0]} width={600} height={880} alt={title} />
         </div>
@@ -52,7 +52,7 @@ const BookCard = ({
 
         <AddToCartBtnWrapper
           product={{
-            _id,
+            originalId,
             title,
             description: description || "",  
             image,

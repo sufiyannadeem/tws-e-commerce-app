@@ -1,7 +1,7 @@
 type SearchParamsType = { [key: string]: string | string[] | undefined };
 
 type GroceryProduct = {
-  _id: string;
+  originalId: string;
   title: string;
   description: string;
   price: number;
@@ -13,7 +13,7 @@ type GroceryProduct = {
 };
 
 type GadgetProduct = {
-  _id: string;
+  originalId: string;
   title: string;
   description: string;
   price: number;
@@ -27,7 +27,7 @@ type GadgetProduct = {
 };
 
 type BakeryProduct = {
-  _id: string;
+  originalId: string;
   title: string;
   description: string;
   price: number;
@@ -41,7 +41,7 @@ type BakeryProduct = {
 };
 
 type ClothingProduct = {
-  _id: string;
+  originalId: string;
   title: string;
   description: string;
   price: number;
@@ -57,7 +57,7 @@ type ClothingProduct = {
 };
 
 type MakeupProduct = {
-  _id: string;
+  originalId: string;
   title: string;
   description: string;
   price: number;
@@ -72,7 +72,7 @@ type MakeupProduct = {
 };
 
 type BagsProduct = {
-  _id: string;
+  originalId: string;
   title: string;
   description: string;
   price: number;
@@ -87,7 +87,7 @@ type BagsProduct = {
 };
 
 type BooksProduct = {
-  _id: string;
+  originalId: string;
   title: string;
   description: string;
   price: number;
@@ -102,7 +102,7 @@ type BooksProduct = {
 };
 
 type MedicineProduct = {
-  _id: string;
+  originalId: string;
   title: string;
   description: string;
   price: number;

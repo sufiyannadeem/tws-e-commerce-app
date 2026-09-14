@@ -12,7 +12,7 @@ type FeaturedParams = {
 };
 
 type AllProduct = {
-  _id: string;
+  originalId: string;
   title: string;
   description: string;
   price: number;
@@ -85,7 +85,7 @@ const FeaturedProducts = ({ featured }: FeaturedParams) => {
         <FeaturedNav />
         <div className="grid gap-4 grid-cols-1 min-[360px]:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 mt-6">
           {products.map((product: AllProduct) => (
-            <ProductCard key={product._id} product={product} variants="style-2" />
+            <ProductCard key={product.originalId} product={product} variants="style-2" />
           ))}
         </div>
 

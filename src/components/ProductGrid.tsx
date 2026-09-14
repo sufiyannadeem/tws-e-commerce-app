@@ -45,7 +45,7 @@ const ProductGrid = async ({ params, searchParams }: CategoryPageProps) => {
             <ProductCard
               product={product}
               variants={settings.productCardVariants}
-              key={product._id}
+              key={product.originalId}
             />
           ))}
         </div>

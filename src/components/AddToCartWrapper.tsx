@@ -34,10 +34,10 @@ const AddToCartBtnWrapper = ({
   const dispatch = useDispatch();
 
   useEffect(() => {
-    setAddedItem(cartItems.find((item) => item._id === product._id));
+    setAddedItem(cartItems.find((item) => item.originalId === product.originalId));
     dispatch(handleCountValue("none"));
     return () => {};
-  }, [product._id, cartItems, dispatch]);
+  }, [product.originalId, cartItems, dispatch]);
 
   // handle add to cart button
   const handleAddToCart = (withCounter: boolean) => {
@@ -47,7 +47,7 @@ const AddToCartBtnWrapper = ({
         // checking btn is with counter or not
         if (withCounter) {
           addedItem
-            ? dispatch(removeFromCart(product._id))
+            ? dispatch(removeFromCart(product.originalId))
             : dispatch(
                 addToCart({
                   ...product,
@@ -68,13 +68,13 @@ const AddToCartBtnWrapper = ({
         }
       } else {
         // when color and size is not selected redirect to the product page
-        router.push(`/products/${product._id}`);
+        router.push(`/products/${product.originalId}`);
       }
     } else {
       // if shop category is not clothing
       if (withCounter) {
         addedItem
-          ? dispatch(removeFromCart(product._id))
+          ? dispatch(removeFromCart(product.originalId))
           : dispatch(
               addToCart({
                 ...product,
@@ -114,7 +114,7 @@ const AddToCartBtnWrapper = ({
         type="button"
         variant="outline"
         className="h-9 w-9 rounded-none border-none"
-        onClick={() => dispatch(decrementAmount(product._id))}
+        onClick={() => dispatch(decrementAmount(product.originalId))}
       >
         -
       </Button>
@@ -123,7 +123,7 @@ const AddToCartBtnWrapper = ({
         type="button"
         variant="outline"
         className="h-9 w-9 rounded-none border-none"
-        onClick={() => dispatch(incrementAmount(product._id))}
+        onClick={() => dispatch(incrementAmount(product.originalId))}
       >
         +
       </Button>

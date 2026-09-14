@@ -22,14 +22,14 @@ const Counter = ({ className, quantity, product }: CounterProps) => {
   const { cartItems, countValue } = useAppSelector((state) => state.cartSlice);
   const dispatch = useDispatch();
 
-  const addedItem = cartItems.find((item) => item._id === product._id);
+  const addedItem = cartItems.find((item) => item.originalId === product.originalId);
 
   const handleCount = (num: number) => {
     if (addedItem) {
       if (num === 1) {
-        dispatch(incrementAmount(product._id));
+        dispatch(incrementAmount(product.originalId));
       } else {
-        dispatch(decrementAmount(product._id));
+        dispatch(decrementAmount(product.originalId));
       }
     }
     dispatch(handleCountValue(num === 1 ? "increment" : "decrement"));

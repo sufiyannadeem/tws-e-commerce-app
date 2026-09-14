@@ -50,7 +50,7 @@ const AddToWishlist = ({ product }: AddToWishlistProps) => {
   const dispatch = useDispatch();
 
   const isProductInWishlist = wishlists.some(
-    (wishlist) => wishlist._id === product._id
+    (wishlist) => wishlist.originalId === product.originalId
   );
 
   return (

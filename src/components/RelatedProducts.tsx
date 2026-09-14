@@ -25,7 +25,7 @@ const RelatedProducts = async ({
         <ProductCard
           product={product}
           variants={settings.productCardVariants}
-          key={product._id}
+          key={product.originalId}
         />
       ))}
     </>

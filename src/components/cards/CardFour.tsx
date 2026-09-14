@@ -4,7 +4,7 @@ import AddToCartBtnWrapper from "../AddToCartWrapper";
 import { discountPercent } from "@/lib/utils";
 
 const CardFour = ({
-  _id,
+  originalId,
   title,
   image,
   price,
@@ -20,7 +20,7 @@ const CardFour = ({
           -{discountPercent(price, oldPrice)}
         </p>
       )}
-      <Link href={`/products/${_id}`}>
+      <Link href={`/products/${originalId}`}>
         <div className="img rounded-sm overflow-hidden">
           <Image
             src={image[0]}
@@ -50,7 +50,7 @@ const CardFour = ({
         <AddToCartBtnWrapper
           btnStyle="style-4"
           product={{
-            _id,
+            originalId,
             title,
             description: "",
             image,

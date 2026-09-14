@@ -41,7 +41,7 @@ export default function SelectVariants({
   );
 
   // find the added item in carts
-  const cartItem = cartItems.find((item) => item._id === productId);
+  const cartItem = cartItems.find((item) => item.originalId === productId);
 
   // filtering which colors are available
   const availableColors = colors.filter((col) =>

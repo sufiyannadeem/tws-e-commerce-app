@@ -1,5 +1,5 @@
 export type GroceryProduct = {
-  _id: string;
+  originalId: string;
   title: string;
   description: string;
   price: number;
@@ -11,7 +11,7 @@ export type GroceryProduct = {
 };
 
 export type GadgetProduct = {
-  _id: string;
+  originalId: string;
   title: string;
   description: string;
   price: number;
@@ -25,7 +25,7 @@ export type GadgetProduct = {
 };
 
 export type BakeryProduct = {
-  _id: string;
+  originalId: string;
   title: string;
   description: string;
   price: number;
@@ -39,7 +39,7 @@ export type BakeryProduct = {
 };
 
 export type ClothingProduct = {
-  _id: string;
+  originalId: string;
   title: string;
   description: string;
   price: number;
@@ -55,7 +55,7 @@ export type ClothingProduct = {
 };
 
 export type MakeupProduct = {
-  _id: string;
+  originalId: string;
   title: string;
   description: string;
   price: number;
@@ -70,7 +70,7 @@ export type MakeupProduct = {
 };
 
 export type BagsProduct = {
-  _id: string;
+  originalId: string;
   title: string;
   description: string;
   price: number;
@@ -85,7 +85,7 @@ export type BagsProduct = {
 };
 
 export type BooksProduct = {
-  _id: string;
+  originalId: string;
   title: string;
   description: string;
   price: number;
@@ -100,7 +100,7 @@ export type BooksProduct = {
 };
 
 export type MedicineProduct = {
-  _id: string;
+  originalId: string;
   title: string;
   description: string;
   price: number;
