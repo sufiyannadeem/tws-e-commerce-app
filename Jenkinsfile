@@ -173,22 +173,34 @@ pipeline {
                 }
             }
         }
-    }
 
+        // ==========================================================
+        // 9. TEMPORARY EMAIL FAILURE TEST
+        // REMOVE THIS STAGE AFTER EMAIL TESTING
+        // ==========================================================
         stage('TEST EMAIL FAILURE') {
             steps {
                 script {
-                    echo "🧪 INTENTIONAL FAILURE - Testing Jenkins Email Notification"
-                    error("🧪 Intentional failure for email notification test")
+
+                    echo "=========================================="
+                    echo "INTENTIONAL FAILURE"
+                    echo "TESTING JENKINS EMAIL NOTIFICATION"
+                    echo "=========================================="
+
+                    error("Intentional failure to test Jenkins email notification")
+                }
+            }
         }
     }
-}
 
     // ==============================================================
     // POST ACTIONS
     // ==============================================================
     post {
 
+        // ==========================================================
+        // SUCCESS
+        // ==========================================================
         success {
             echo "=========================================="
             echo "JENKINS PIPELINE COMPLETED SUCCESSFULLY"
@@ -207,9 +219,13 @@ pipeline {
             echo "main"
         }
 
+        // ==========================================================
+        // FAILURE - SEND EMAIL
+        // ==========================================================
         failure {
             echo "=========================================="
             echo "JENKINS PIPELINE FAILED"
+            echo "SENDING FAILURE EMAIL"
             echo "=========================================="
 
             emailext(
@@ -223,34 +239,48 @@ pipeline {
 
                     <hr>
 
-                    <p><b>Job:</b> ${env.JOB_NAME}</p>
-
-                    <p><b>Build Number:</b> #${env.BUILD_NUMBER}</p>
-
-                    <p><b>Build Status:</b> FAILED</p>
-
-                    <p><b>Branch:</b> ${env.GIT_BRANCH}</p>
-
-                    <p><b>Docker Image:</b>
-                    ${env.DOCKER_IMAGE_NAME}:${env.DOCKER_IMAGE_TAG}
+                    <p>
+                        <b>Job:</b>
+                        ${env.JOB_NAME}
                     </p>
 
-                    <p><b>Migration Image:</b>
-                    ${env.DOCKER_MIGRATION_IMAGE_NAME}:${env.DOCKER_IMAGE_TAG}
+                    <p>
+                        <b>Build Number:</b>
+                        #${env.BUILD_NUMBER}
+                    </p>
+
+                    <p>
+                        <b>Build Status:</b>
+                        FAILED
+                    </p>
+
+                    <p>
+                        <b>Branch:</b>
+                        ${env.GIT_BRANCH}
+                    </p>
+
+                    <p>
+                        <b>Application Docker Image:</b><br>
+                        ${env.DOCKER_IMAGE_NAME}:${env.DOCKER_IMAGE_TAG}
+                    </p>
+
+                    <p>
+                        <b>Migration Docker Image:</b><br>
+                        ${env.DOCKER_MIGRATION_IMAGE_NAME}:${env.DOCKER_IMAGE_TAG}
                     </p>
 
                     <hr>
 
                     <p>
-                        <b>Jenkins Build:</b><br>
+                        <b>Jenkins Build URL:</b><br>
                         <a href="${env.BUILD_URL}">
                             ${env.BUILD_URL}
                         </a>
                     </p>
 
                     <p>
-                        Please check the Jenkins console output to identify
-                        the cause of the failure.
+                        Please check the Jenkins console output
+                        to identify the cause of the failure.
                     </p>
 
                     <hr>
@@ -267,6 +297,9 @@ pipeline {
             )
         }
 
+        // ==========================================================
+        // ALWAYS - CLEAN WORKSPACE
+        // ==========================================================
         always {
             echo "Cleaning Jenkins workspace..."
 
