@@ -1,7 +1,7 @@
 @Library('Shared') _
 
 pipeline {
-    agent any
+    agent any...
 
     environment {
         DOCKER_IMAGE_NAME = 'sufiyannadeem/easyshop-app'
@@ -202,6 +202,60 @@ pipeline {
             echo "=========================================="
             echo "JENKINS PIPELINE FAILED"
             echo "=========================================="
+
+            emailext(
+                subject: "❌ Jenkins Pipeline Failed - ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+
+                body: """
+                    <html>
+                    <body>
+
+                    <h2>❌ Jenkins Pipeline Failed</h2>
+
+                    <hr>
+
+                    <p><b>Job:</b> ${env.JOB_NAME}</p>
+
+                    <p><b>Build Number:</b> #${env.BUILD_NUMBER}</p>
+
+                    <p><b>Build Status:</b> FAILED</p>
+
+                    <p><b>Branch:</b> ${env.GIT_BRANCH}</p>
+
+                    <p><b>Docker Image:</b>
+                    ${env.DOCKER_IMAGE_NAME}:${env.DOCKER_IMAGE_TAG}
+                    </p>
+
+                    <p><b>Migration Image:</b>
+                    ${env.DOCKER_MIGRATION_IMAGE_NAME}:${env.DOCKER_IMAGE_TAG}
+                    </p>
+
+                    <hr>
+
+                    <p>
+                        <b>Jenkins Build:</b><br>
+                        <a href="${env.BUILD_URL}">
+                            ${env.BUILD_URL}
+                        </a>
+                    </p>
+
+                    <p>
+                        Please check the Jenkins console output to identify
+                        the cause of the failure.
+                    </p>
+
+                    <hr>
+
+                    <p>
+                        <b>Jenkins CI/CD</b>
+                    </p>
+
+                    </body>
+                    </html>
+                """,
+
+                to: "sufiyanmohammed098@gmail.com"
+            )
         }
 
         always {
@@ -212,4 +266,3 @@ pipeline {
             }
         }
     }
-}
