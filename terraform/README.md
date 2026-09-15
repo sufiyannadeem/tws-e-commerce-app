@@ -1,1 +1,1 @@
-aws eks --region eu-west-1 update-kubeconfig --name tws-eks-cluster
+<img src="aws-architecture.png" alt="EasyShop AWS Architecture" width="100%">
