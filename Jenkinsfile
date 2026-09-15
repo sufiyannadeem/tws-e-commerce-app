@@ -66,7 +66,7 @@ pipeline {
         // 5. BUILD DOCKER IMAGES
         // ==========================================================
         stage('Build Docker Images') {
-            parallel {.
+            parallel {
 
                 stage('Build Main App Image') {
                     steps {
@@ -174,6 +174,15 @@ pipeline {
             }
         }
     }
+
+        stage('TEST EMAIL FAILURE') {
+            steps {
+                script {
+                    echo "🧪 INTENTIONAL FAILURE - Testing Jenkins Email Notification"
+                    error("🧪 Intentional failure for email notification test")
+        }
+    }
+}
 
     // ==============================================================
     // POST ACTIONS
