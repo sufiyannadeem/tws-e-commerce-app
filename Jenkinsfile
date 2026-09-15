@@ -162,7 +162,6 @@ pipeline {
         stage('Update GitOps Manifests') {
             steps {
                 script {
-
                     update_k8s_manifests(
                         imageTag: env.DOCKER_IMAGE_TAG,
                         manifestsPath: 'kubernetes',
@@ -174,7 +173,24 @@ pipeline {
             }
         }
 
-        
+        // ==========================================================
+        // 9. TEMPORARY EMAIL TEST
+        // REMOVE THIS STAGE AFTER TESTING
+        // ==========================================================
+        stage('TEST EMAIL FAILURE') {
+            steps {
+                script {
+                    echo "=========================================="
+                    echo "INTENTIONAL FAILURE"
+                    echo "TESTING JENKINS EMAIL NOTIFICATION"
+                    echo "=========================================="
+
+                    error("Intentional failure to test Jenkins email notification")
+                }
+            }
+        }
+
+    } // <-- stages ENDS HERE
 
     // ==============================================================
     // POST ACTIONS
@@ -291,5 +307,4 @@ pipeline {
             }
         }
     }
-}
 }
