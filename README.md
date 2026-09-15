@@ -320,7 +320,7 @@ This provides monitoring coverage across:
 
 <img src="screenshots/09-Grafana-Alert-Rules.png" alt="Grafana Kubernetes Alert Rules" width="100%">
 
-### Grafana Email Alert
+### Grafana Email Notification Test
 
 <img src="screenshots/11-Grafana-Alert-Email.png" alt="Grafana Alert Email Notification" width="100%">
 
