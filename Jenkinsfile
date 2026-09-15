@@ -172,25 +172,7 @@ pipeline {
                 }
             }
         }
-
-        // ==========================================================
-        // 9. TEMPORARY EMAIL TEST
-        // REMOVE THIS STAGE AFTER TESTING
-        // ==========================================================
-        stage('TEST EMAIL FAILURE') {
-            steps {
-                script {
-                    echo "=========================================="
-                    echo "INTENTIONAL FAILURE"
-                    echo "TESTING JENKINS EMAIL NOTIFICATION"
-                    echo "=========================================="
-
-                    error("Intentional failure to test Jenkins email notification")
-                }
-            }
-        }
-
-    } // <-- stages ENDS HERE
+    }
 
     // ==============================================================
     // POST ACTIONS
