@@ -109,6 +109,10 @@ The overall workflow is:
 
 Jenkins performs the CI activities, while Argo CD handles the Kubernetes deployment using the GitOps repository as the source of truth.
 
+### Jenkins Pipeline
+
+<img src="screenshots/04-Jenkins-CI-CD-Pipeline.png" alt="Jenkins CI/CD Pipeline" width="100%">
+
 ## Docker Images
 
 The Jenkins pipeline builds two Docker images:
@@ -119,6 +123,10 @@ sufiyannadeem/easyshop-migration:<BUILD_NUMBER>
 The application image contains the EasyShop application, while the migration image is used to execute database migrations before deployment.
 
 Images are scanned with Trivy before being pushed to Docker Hub.
+
+### Docker Hub Images
+
+<img src="screenshots/06-DockerHub-Images.png" alt="Docker Hub Images" width="100%">
 
 ## Security Scanning
 
@@ -163,6 +171,10 @@ Jenkins is configured with email notifications to provide immediate feedback whe
 
 When a pipeline fails, Jenkins automatically sends an email containing the build status and a link to the failed build.
 
+### Jenkins Failure Notification
+
+<img src="screenshots/05-Jenkins-Failure-Notification.png" alt="Jenkins Pipeline Failure Email Notification" width="100%">
+
 **CI failure flow:**
 
 **GitHub → Jenkins → Test / Scan / Build → Failure → Email Notification**
@@ -180,6 +192,10 @@ The application source code and Kubernetes deployment manifests are maintained i
 Jenkins does not directly deploy the application to Kubernetes.
 
 Instead, Jenkins updates the image tag in the GitOps repository. Argo CD detects the Git change and synchronizes the Kubernetes manifests with the EKS cluster.
+
+### Argo CD Application
+
+<img src="screenshots/07-ArgoCD-GitOps-Deployment.png" alt="Argo CD EasyShop Application" width="100%">
 
 ## Kubernetes Deployment
 
@@ -230,6 +246,10 @@ HTTPS certificates are automatically managed using:
 
 This provides encrypted HTTPS communication between users and the application.
 
+### Live EasyShop Application
+
+<img src="screenshots/10-EasyShop-HTTPS.png" alt="EasyShop Application Running on AWS EKS" width="100%">
+
 ## Horizontal Pod Autoscaling
 
 Horizontal Pod Autoscaler (HPA) is configured for the EasyShop application.
@@ -255,6 +275,10 @@ The Kubernetes environment is monitored using Prometheus and Grafana.
 Prometheus collects Kubernetes and application-related metrics, while Grafana provides dashboards for visualization and monitoring.
 
 Metrics Server is also used by Kubernetes HPA for CPU and resource utilization metrics.
+
+### Grafana Argo CD Dashboard
+
+<img src="screenshots/08-Grafana-ArgoCD-Monitoring.png" alt="Grafana Argo CD Monitoring Dashboard" width="100%">
 
 ### Grafana Alerting
 
@@ -292,6 +316,10 @@ This provides monitoring coverage across:
 
 **AWS EKS → Prometheus → Grafana Dashboards + Grafana Alerting → Gmail**
 
+### Grafana Alert Rules
+
+<img src="screenshots/09-Grafana-Alert-Rules.png" alt="Grafana Kubernetes Alert Rules" width="100%">
+
 ## Infrastructure as Code
 
 AWS infrastructure is provisioned using Terraform.
@@ -326,6 +354,18 @@ The project uses the following AWS components:
 | Security Groups | Network security               |
 
 The EKS worker nodes run in private subnets, while Jenkins and the Bastion Host are deployed in public subnets.
+
+### AWS VPC
+
+<img src="screenshots/01-AWS-VPC-Architecture.png" alt="AWS VPC Architecture" width="100%">
+
+### Amazon EKS Cluster
+
+<img src="screenshots/02-EKS-Cluster-Overview.png" alt="Amazon EKS Cluster" width="100%">
+
+### EKS Worker Nodes
+
+<img src="screenshots/03-EKS-Nodes.png" alt="EKS Worker Nodes" width="100%">
 
 ## Major DevOps Challenge
 
