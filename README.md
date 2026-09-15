@@ -1,6 +1,6 @@
 # 🛒 EasyShop - E-Commerce DevOps Project
 
-![Next.js](https://img.shields.io/badge/Next.js-14.1.0-black?style=for-the-badge&logo=next.js)
+![Next.js](https://img.shields.io/badge/Next.js-15.5.25-black?style=for-the-badge&logo=next.js)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=for-the-badge&logo=typescript)
 ![MongoDB](https://img.shields.io/badge/MongoDB-8.1.1-green?style=for-the-badge&logo=mongodb)
 ![Docker](https://img.shields.io/badge/Docker-Containerized-2496ED?style=for-the-badge&logo=docker)
@@ -31,6 +31,7 @@ The project demonstrates the complete flow from source-code commit to applicatio
 - HTTPS using cert-manager and Let's Encrypt
 - Horizontal Pod Autoscaling
 - Prometheus and Grafana monitoring
+- Grafana Alerting and email notifications
 
 The main goal of the project is to automate application delivery while making the infrastructure reproducible, deployments traceable, and the application scalable and observable.
 
@@ -151,6 +152,21 @@ The shared library provides reusable functionality for tasks such as:
 
 This approach keeps the Jenkinsfile cleaner and makes the pipeline logic reusable across projects.
 
+### Jenkins Email Notifications
+
+Jenkins is configured with email notifications to provide immediate feedback when a CI pipeline fails.
+
+- SMTP: Gmail SMTP
+- Notification recipient: configured project email address
+- Trigger: Jenkins pipeline failure
+- Notification method: `emailext`
+
+When a pipeline fails, Jenkins automatically sends an email containing the build status and a link to the failed build.
+
+**CI failure flow:**
+
+**GitHub → Jenkins → Test / Scan / Build → Failure → Email Notification**
+
 ## GitOps with Argo CD
 
 The project follows a GitOps-based deployment model.
@@ -240,6 +256,42 @@ Prometheus collects Kubernetes and application-related metrics, while Grafana pr
 
 Metrics Server is also used by Kubernetes HPA for CPU and resource utilization metrics.
 
+### Grafana Alerting
+
+Grafana Alerting is configured to continuously evaluate Prometheus metrics and send email notifications through a Gmail contact point when production-relevant conditions occur.
+
+**Alert notification flow:**
+
+**Prometheus → Grafana Alerting → Gmail Contact Point → Email Notification**
+
+The project currently includes the following alerts:
+
+| Alert | Purpose |
+|---|---|
+| **ArgoCD Application OutOfSync** | Detects applications that are not synchronized with the GitOps repository |
+| **ArgoCD Application Degraded** | Detects ArgoCD applications in a degraded health state |
+| **ArgoCD Sync Failed** | Detects failed ArgoCD synchronization operations |
+| **Kubernetes Pod Restarting** | Detects repeated Kubernetes container restarts |
+| **Kubernetes Pod CrashLoopBackOff** | Detects containers repeatedly failing and entering CrashLoopBackOff |
+| **EKS Node High CPU** | Detects high CPU utilization on EKS worker nodes |
+| **EKS Node High Memory** | Detects high memory utilization on EKS worker nodes |
+| **EKS Node NotReady** | Detects EKS worker nodes that are no longer Ready |
+| **EasyShop Deployment Unavailable** | Detects unavailable EasyShop deployment replicas |
+
+Grafana evaluates these alert rules at regular intervals and uses the configured **Gmail Alerts** contact point for notifications.
+
+This provides monitoring coverage across:
+
+- ArgoCD / GitOps health
+- Kubernetes workloads
+- EKS worker-node resources
+- EasyShop deployment availability
+- Pod failures and restart conditions
+
+**Monitoring and notification flow:**
+
+**AWS EKS → Prometheus → Grafana Dashboards + Grafana Alerting → Gmail**
+
 ## Infrastructure as Code
 
 AWS infrastructure is provisioned using Terraform.
@@ -296,6 +348,7 @@ This allows the previous migration Job to be removed before creating the new Job
 - Kubernetes container orchestration
 - Jenkins CI/CD
 - Jenkins Shared Library
+- Email notifications for Jenkins CI failures
 - Docker containerization
 - Trivy security scanning
 - Docker Hub image registry
@@ -306,6 +359,8 @@ This allows the previous migration Job to be removed before creating the new Job
 - Kubernetes HPA
 - Prometheus monitoring
 - Grafana dashboards
+- Grafana Alerting
+- Email notifications for Grafana monitoring alerts
 - Automated database migrations
 
 ## Project Outcome
