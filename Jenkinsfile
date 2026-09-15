@@ -1,7 +1,7 @@
 @Library('Shared') _
 
 pipeline {
-    agent any...
+    agent any
 
     environment {
         DOCKER_IMAGE_NAME = 'sufiyannadeem/easyshop-app'
@@ -66,7 +66,7 @@ pipeline {
         // 5. BUILD DOCKER IMAGES
         // ==========================================================
         stage('Build Docker Images') {
-            parallel {
+            parallel {.
 
                 stage('Build Main App Image') {
                     steps {
