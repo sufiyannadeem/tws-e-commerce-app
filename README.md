@@ -189,7 +189,7 @@ When a pipeline fails, Jenkins automatically sends an email containing the build
 
 ### Jenkins Failure Notification
 
-<img src="screenshots/05-Jenkins-Failure-Notification.png" alt="Jenkins Pipeline Failure Email Notification" width="100%">
+[![EasyShop DevOps Project Demo](terraform/aws-architecture.png)](https://youtu.be/h5ElrDxTPh4)
 
 **CI failure flow:**
 
