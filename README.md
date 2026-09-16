@@ -71,7 +71,7 @@ The main goal of the project is to automate application delivery while making th
 
 ## 🎥 Project Demo
 
-[![EasyShop DevOps Project Demo](https://img.youtube.com/vi/h5ElrDxTPh4/0.jpg)](https://youtu.be/h5ElrDxTPh4)
+[![EasyShop DevOps Project Demo](terraform/aws-architecture.png)](https://youtu.be/h5ElrDxTPh4)
 
 A complete walkthrough of the EasyShop DevOps implementation, covering:
 
