@@ -69,6 +69,22 @@ The main goal of the project is to automate application delivery while making th
 
 <img src="final-architecture.png" alt="EasyShop DevOps Architecture" width="100%">
 
+## 🎥 Project Demo
+
+[![EasyShop DevOps Project Demo](https://img.youtube.com/vi/h5ElrDxTPh4/0.jpg)](https://youtu.be/h5ElrDxTPh4)
+
+A complete walkthrough of the EasyShop DevOps implementation, covering:
+
+- AWS infrastructure provisioned with Terraform
+- Jenkins CI/CD pipeline
+- Docker image build and push
+- Trivy security scanning
+- GitOps with Argo CD
+- Kubernetes deployment on Amazon EKS
+- NGINX Ingress and HTTPS
+- Prometheus and Grafana monitoring
+- Grafana alerting and email notifications
+
 ## Project Repositories
 
 ### Application Repository
