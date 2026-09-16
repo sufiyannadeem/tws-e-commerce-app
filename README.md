@@ -69,7 +69,7 @@ The main goal of the project is to automate application delivery while making th
 
 <img src="final-architecture.png" alt="EasyShop DevOps Architecture" width="100%">
 
-## 🎥 Project Demo
+# 🎥 Project Demo
 
 [![EasyShop DevOps Project Demo](terraform/aws-architecture.png)](https://youtu.be/h5ElrDxTPh4)
 
